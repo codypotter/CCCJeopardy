@@ -3,18 +3,31 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <title>Jeopardy</title>
   </head>
   <body>
     <nav class="navbar navbar-light bg-light justify-content-between">
       <a class="navbar-brand">Jeopardy</a>
     </nav>
-    <h3>This is a Jeopardy Test</h3>
+    <h3 id="bigOne">This is a Jeopardy Test</h3>
     <ul>
       <li>This is the first item.</li>
       <li>This is the second item.</li>
     </ul>
   </body>
+
+<script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAhu6D66dYsiNFeizeaa2scqMEO_9fX0c8",
+    authDomain: "cccjeopardy.firebaseapp.com",
+    databaseURL: "https://cccjeopardy.firebaseio.com",
+    projectId: "cccjeopardy",
+    storageBucket: "",
+    messagingSenderId: "1045575184638"
+  };
+  firebase.initializeApp(config);
+</script>
+<script type="text/javascript" src="scripts/main.js"></script>
 </html>
