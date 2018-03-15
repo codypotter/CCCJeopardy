@@ -1,0 +1,75 @@
+/*
+  Color Palette:  #1A2830
+                  #2f4858
+                  #33658A
+                  #86BBD8
+                  #F6AE2D
+                  #F26419
+*/
+
+html, body {
+  height: 100%;
+  background: #2F4858;
+  color: white;
+  font-family: 'Open Sans', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper {
+  height: 100%;
+  overflow: hidden;
+}
+
+.top {
+  top: 0;
+  height: 92px;
+  background: #1A2830;
+}
+
+.left {
+  background: #1A2830;
+  float: left;
+  min-height: 100%;
+  width: 178px;
+}
+
+.main {
+  margin-left: 178px;
+  height: 100vh;
+}
+
+.app-title {
+  text-align: center;
+}
+
+.button-grid {
+  max-height: 100vh;
+}
+
+.button {
+  margin-left: 1%;
+  margin-top: 1%;
+  float: left;
+  width: 18.8%;
+  height: 14.5%;
+  background: #33658A;
+}
+
+.button-title {
+  text-align: center;
+  font-size: 2em;
+  margin: auto;
+}
+
+.title-button {
+  background: #F6AE2D;
+  color: #1A2830;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Nunito', sans-serif;
+}
