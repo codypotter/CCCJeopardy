@@ -6,7 +6,7 @@
   for (var i = 0; i < 30; i++) {
     var butt = button.clone().appendTo(buttonGrid);
     if (i < 5) {
-      var text = $('<h4></h4>').addClass('button-title').text("This is");
+      var text = $('<h4></h4>').addClass('button-title').text("This is a test");
       butt.append(text);
       butt.addClass('title-button');
     }

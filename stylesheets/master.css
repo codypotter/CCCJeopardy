@@ -48,21 +48,25 @@ html, body {
 
 .button-grid {
   max-height: 100vh;
+  display:grid;
+  grid-template-columns: 19.2% 19.2% 19.2% 19.2% 19.2%;
+  grid-template-rows: 15.5% 15.5% 15.5% 15.5% 15.5% 15.5%;
+  align-items: stretch;
+  grid-column-gap: 1%;
+  grid-row-gap: 1%;
 }
 
 .button {
-  margin-left: 1%;
-  margin-top: 1%;
-  float: left;
-  width: 18.8%;
-  height: 14.5%;
   background: #33658A;
 }
 
 .button-title {
   text-align: center;
   font-size: 2em;
-  margin: auto;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
 }
 
 .title-button {
