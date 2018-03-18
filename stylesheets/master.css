@@ -47,17 +47,21 @@ html, body {
 }
 
 .button-grid {
+  margin: 0.5%;
   max-height: 100vh;
   display:grid;
   grid-template-columns: 19.2% 19.2% 19.2% 19.2% 19.2%;
   grid-template-rows: 15.5% 15.5% 15.5% 15.5% 15.5% 15.5%;
   align-items: stretch;
-  grid-column-gap: 1%;
-  grid-row-gap: 1%;
+  grid-column-gap: 0.5%;
+  grid-row-gap: 0.5%;
 }
 
 .button {
   background: #33658A;
+  border-radius: 2px;
+  color: white;
+  
 }
 
 .button-title {
