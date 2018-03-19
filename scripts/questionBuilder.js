@@ -48,10 +48,12 @@
   function getData() {
     gapi.client.sheets.spreadsheets.values.get({
       spreadsheetId: spreadsheetID, //This is the id of the user's spreadsheet
-      range: 'Sheet1!A1:B1', //This defines where the data is coming from
+      range: 'Sheet1!A1:B62', //This defines where the data is coming from
+      majorDimension: 'ROWS',
     }).then(function(response) {
       var range = response.result;
       console.log(range);
+      console.log(range.values[0][0]);
     })
   }
 
