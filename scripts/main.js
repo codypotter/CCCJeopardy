@@ -1,8 +1,11 @@
 (function(window){
+  'use strict';
+  var App = window.App;
+  var QuestionBuilder = App.QuestionBuilder;
   var $ = window.$;
   var buttonGrid = $('.button-grid');
   var button = $('<div></div>').addClass('button');
-  
+
   buttonGrid.height(window.innerHeight);
 
   for (var i = 0; i < 30; i++) {
