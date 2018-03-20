@@ -5,9 +5,11 @@
   var DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
   var SCOPES = "https://www.googleapis.com/auth/spreadsheets.readonly";
   var App = window.App || {};
+  var Question = App.Question;
   var $ = window.jQuery;
   var spreadsheetID;
   var GoogleAuth;
+  var questionList = [];
 
   function QuestionBuilder(spreadsheetLink) {
     this.spreadsheetLink = spreadsheetLink;
@@ -52,8 +54,25 @@
       majorDimension: 'ROWS',
     }).then(function(response) {
       var range = response.result;
-      console.log(range);
-      console.log(range.values[0][0]);
+      var category = '';
+      var points = 0;
+      for (var i = 0; i < range.values.length; i++) {
+        if (!(i % 6)) {
+          category = range.values[i][0];
+          questionList[i] = category;
+          continue;
+        }
+        if (i < 30) {
+          points += 100;
+          if (points > 500) {points = 100;}
+        } else {
+          if (points == 500) {points = 0;}
+          points += 200;
+          if (points > 1000) {points = 200;}
+        }
+        questionList[i] = new Question(category, range.values[i], points);
+      }
+      console.log(questionList);
     })
   }
 
