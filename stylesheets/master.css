@@ -26,17 +26,18 @@ html, body {
   overflow: hidden;
 }
 
-.top {
+.intro-sidebar {
+  background: #1A2830;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
   top: 0;
-  height: 92px;
-  background: #1A2830;
-}
-
-.left {
-  background: #1A2830;
-  float: left;
-  min-height: 100%;
-  width: 178px;
+  left: 0;
+  overflow-x: hidden;
+  padding-top: 60px;
+  transition: 0.7s;
+  transition-timing-function: ease-in-out;
 }
 
 .main {
@@ -51,7 +52,7 @@ html, body {
 .button-grid {
   margin: 0.5%;
   max-height: 100vh;
-  display:grid;
+  display: grid;
   grid-template-columns: 19.2% 19.2% 19.2% 19.2% 19.2%;
   grid-template-rows: 15.5% 15.5% 15.5% 15.5% 15.5% 15.5%;
   align-items: stretch;
@@ -81,4 +82,26 @@ html, body {
 
 h1, h2, h3, h4, h5 {
   font-family: 'Nunito', sans-serif;
+}
+
+.login-container {
+  transform: translateY(50px);
+}
+
+.login-title {
+  margin-top: 50px;
+  text-align: center;
+}
+
+#student-side {
+  width: 60%;
+  height: 500px;
+  background-color: #2f4858;
+  float: left;
+}
+
+#instructor-side {
+  width: 40%;
+  height: 500px;
+  float: left;
 }

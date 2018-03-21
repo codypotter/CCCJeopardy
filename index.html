@@ -5,17 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Nunito|Open+Sans" rel="stylesheet">
     <link rel="stylesheet" href="/stylesheets/master.css">
-    <title>Jeopardy</title>
+    <title>Gem Party</title>
   </head>
   <body>
     <div class="wrapper">
-      <div class="left">
-        <h2 class="app-title">Jeopardy</h2>
-        <ul>
-        </ul>
-      </div>
-      <div class="main">
-        <div class="button-grid">
+      <div class="intro-sidebar">
+        <h1 class="app-title">Gem Party</h1>
+        <div class="login-container">
+          <div id="student-side">
+            <h2 class="login-title">I'm a Student</h2>
+            <form>
+              Game ID: <input type="text" name="game-id" value="Ask your Instructor"><br>
+              Name: <input type="text" name="name" value="Enter your name"><br>
+              Team Number: <input type="number" name="team-number" min="1" max="3"><br>
+              <button class="continue-button" type="continue-button" name="join-game-button">Join Game</button>
+            </form>
+          </div>
+          <div id="instructor-side">
+            <h2 class="login-title">I'm an Instructor</h2>
+            <form>
+              Game ID: <input type="text" name="game-id" value="Make this up!"><br>
+              Questions URL: <input type="url" name="name" value="Link to Google Sheet"><br>
+              Team Number: <input type="number" name="team-number" min="1" max="3"><br>
+              <button class="continue-button" type="continue-button" name="create-game-button">Create Game</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
