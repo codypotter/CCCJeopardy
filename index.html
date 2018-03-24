@@ -5,13 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Nunito|Open+Sans" rel="stylesheet">
     <link rel="stylesheet" href="/stylesheets/master.css">
-    <title>Gem Party</title>
+    <title>Jeopardy</title>
   </head>
   <body>
     <div class="wrapper">
       <div class="intro-sidebar">
-        <h1 class="app-title">Gem Party</h1>
+        <h1 class="app-title">Jeopardy</h1>
         <div class="login-container">
+          <div class="firebase-demo">
+            <h3 class="firebase-demo-h3">Sample Text</h3><br>
+            <textarea name="firebase-demo-textarea" class="firebase-demo-textarea" rows="8" cols="80"></textarea>
+            <button type="button" name="firebase-demo-button" class="firebase-demo-button">Send to Firebase</button><br>
+          </div>
+
           <div id="student-side">
             <h2 class="login-title">I'm a Student</h2>
             <form>
@@ -37,18 +43,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="https://apis.google.com/js/api.js"></script>
 <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
-<script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyAhu6D66dYsiNFeizeaa2scqMEO_9fX0c8",
-    authDomain: "cccjeopardy.firebaseapp.com",
-    databaseURL: "https://cccjeopardy.firebaseio.com",
-    projectId: "cccjeopardy",
-    storageBucket: "",
-    messagingSenderId: "1045575184638"
-  };
-  firebase.initializeApp(config);
-</script>
+<script type="text/javascript" src="scripts/firebaseHandler.js"></script>
 <script type="text/javascript" src="scripts/question.js"></script>
 <script type="text/javascript" src="scripts/questionBuilder.js"></script>
 <script type="text/javascript" src="scripts/main.js"></script>
