@@ -18,7 +18,6 @@
       return a.length > b.length ? a : b;
     });
     spreadsheetID = longestElement;
-    handleClientLoad();
   };
 
   function handleClientLoad() {

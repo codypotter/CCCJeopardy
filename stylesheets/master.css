@@ -10,7 +10,7 @@
 html, body {
   height: 100%;
   background: #2F4858;
-  color: white;
+  color: #1A2830;
   font-family: 'Open Sans', sans-serif;
   min-width: 800px;
   min-height: 600px;
@@ -27,7 +27,7 @@ html, body {
 }
 
 .intro-sidebar {
-  background: #1A2830;
+  background: linear-gradient(to bottom right, #33658A, #1A2830);
   height: 100%;
   width: 100%;
   position: fixed;
@@ -75,6 +75,13 @@ html, body {
   transform: translateX(-50%) translateY(-50%);
 }
 
+.google-login-button {
+  width: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .title-button {
   background: #F6AE2D;
   color: #1A2830;
@@ -85,23 +92,13 @@ h1, h2, h3, h4, h5 {
 }
 
 .login-container {
-  transform: translateY(50px);
-}
-
-.login-title {
-  margin-top: 50px;
-  text-align: center;
-}
-
-#student-side {
-  width: 60%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background: #86BBD8;
+  border-radius: 5px;
   height: 500px;
-  background-color: #2f4858;
-  float: left;
-}
-
-#instructor-side {
-  width: 40%;
-  height: 500px;
-  float: left;
+  width: 500px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -250px 0 0 -250px;
 }

@@ -1,12 +1,12 @@
 (function(window) {
   var App = window.App || {};
   var config = {
-    apiKey: "AIzaSyAhu6D66dYsiNFeizeaa2scqMEO_9fX0c8",
-    authDomain: "cccjeopardy.firebaseapp.com",
-    databaseURL: "https://cccjeopardy.firebaseio.com",
-    projectId: "cccjeopardy",
+    apiKey: "AIzaSyDmwHF26leDx1UffZleWD4m7rFI1J_2xyM",
+    authDomain: "grid-quiz-game.firebaseapp.com",
+    databaseURL: "https://grid-quiz-game.firebaseio.com",
+    projectId: "grid-quiz-game",
     storageBucket: "",
-    messagingSenderId: "1045575184638"
+    messagingSenderId: "780090118711"
   };
 
   function FirebaseHandler() {
