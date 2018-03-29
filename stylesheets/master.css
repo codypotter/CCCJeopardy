@@ -11,7 +11,7 @@ html, body {
   height: 100%;
   background: #2F4858;
   color: #1A2830;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
   min-width: 800px;
   min-height: 600px;
 }
@@ -27,7 +27,7 @@ html, body {
 }
 
 .intro-sidebar {
-  background: linear-gradient(to bottom right, #33658A, #1A2830);
+  background: #1A2830;
   height: 100%;
   width: 100%;
   position: fixed;
@@ -76,10 +76,13 @@ html, body {
 }
 
 .google-login-button {
-  width: 50%;
+  width: 250px;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -25px;
+  margin-left: -25px;
 }
 
 .title-button {
@@ -93,12 +96,43 @@ h1, h2, h3, h4, h5 {
 
 .login-container {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  background: #86BBD8;
+  background: #2f4858;
   border-radius: 5px;
-  height: 500px;
+  height: 200px;
   width: 500px;
   position: absolute;
   left: 50%;
   top: 50%;
-  margin: -250px 0 0 -250px;
+  margin: -100px 0 0 -250px;
+}
+
+.login-container-side1 {
+  float: left;
+  background: #33658A;
+  height: 200px;
+  width: 200px;
+  border-radius: 5px 0 0 5px;
+}
+
+.login-container-side1-icon {
+  position: relative;
+  width: 50px;
+  right: -75px;
+  top: 50px;
+}
+
+.login-container-side1-title {
+  position: relative;
+  font-family: 'Pacifico', cursive;
+  color: white;
+  text-align: center;
+  top: 25px;
+}
+
+.login-container-greeting {
+  font-family: 'Roboto', sans-serif;
+  position: relative;
+  top: 20px;
+  text-align: center;
+  color: white;
 }
