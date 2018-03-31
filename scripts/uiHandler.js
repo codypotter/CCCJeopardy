@@ -13,6 +13,18 @@
     $('.intro-sidebar').width('200px');
   };
 
+  UIHandler.prototype.restartQuiz = function() {
+    console.log("restart performed");
+  };
+
+  UIHandler.prototype.resumeQuiz = function() {
+    console.log("resume performed");
+  };
+
+  UIHandler.prototype.editQuiz = function() {
+    console.log("edit performed");
+  };
+
   App.UIHandler = UIHandler;
   window.App = App;
 })(window);

@@ -5,6 +5,20 @@
   var FirebaseHandler = new App.FirebaseHandler();
   var UIHandler = App.UIHandler;
   var $ = window.$;
+  var uiHandler = new UIHandler;
+  var quizList = [];
+
+  $('[name="restart-button"]').click(function(e){
+    uiHandler.restartQuiz();
+  });
+
+  $('[name="resume-button"]').click(function(e){
+    uiHandler.resumeQuiz();
+  });
+
+  $('[name="edit-button"]').click(function(e){
+    uiHandler.editQuiz();
+  });
 
   /*  Firebase Demo
   var demoRef = firebase.database().ref('demo');

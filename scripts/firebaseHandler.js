@@ -10,6 +10,10 @@
   };
   var provider = new firebase.auth.GoogleAuthProvider();
 
+  var quizUIDList = [];
+  var user = {};
+
+
   function FirebaseHandler() {
     firebase.initializeApp(config);
     console.log("firebasehandler constructor called");
@@ -18,10 +22,10 @@
   $('.google-login-button').click(function(e) {
     firebase.auth().signInWithPopup(provider).then(function(result) {
       var token = result.credential.accessToken;
-      var user = result.user;
-      console.log(user);
-      var uh = new App.UIHandler();
-      uh.login();
+      user = result.user;
+      console.log(user.uid);
+      getUserQuizzes();
+
     }).catch(function(error) {
       // Handle Errors here.
       var errorCode = error.code;
@@ -34,7 +38,17 @@
     });
   });
 
-
+  function getUserQuizzes() {
+    var quizListRef = firebase.database().ref('users/' + user.uid + '/userQuizzes');
+    var i = 0;
+    quizListRef.on('child_added', function(data) {
+      quizUIDList[i] = data.key;
+      i++;
+    });
+    var uiHandler = new App.UIHandler();
+    uiHandler.login();
+    console.log(quizUIDList);
+  };
 
   App.FirebaseHandler = FirebaseHandler;
   window.App = App;
