@@ -2,10 +2,10 @@
   'use strict';
   var App = window.App || {};
   var QuestionBuilder = App.QuestionBuilder;
-  var FirebaseHandler = new App.FirebaseHandler();
+  var FirebaseHandler = App.FirebaseHandler;
   var UIHandler = App.UIHandler;
   var $ = window.$;
-
+  var fh = new FirebaseHandler();
   /*  Firebase Demo
   var demoRef = firebase.database().ref('demo');
   demoRef.on('value', function(snapshot) {

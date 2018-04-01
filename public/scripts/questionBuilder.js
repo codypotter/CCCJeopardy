@@ -1,6 +1,6 @@
 (function(window) {
   'use strict';
-  var CLIENT_ID= '1045575184638-mgt4i5r9cv43bh7q0o6ft9377nvb345l.apps.googleusercontent.com';
+  var CLIENT_ID= '780090118711-07akukodutslaq53o5a90fsqitf8fh1e.apps.googleusercontent.com';
   var API_KEY= 'AIzaSyB2bm1RUPQNlZjr_Z4LbRvhh6SaMx_1sCs';
   var DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
   var SCOPES = ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"];

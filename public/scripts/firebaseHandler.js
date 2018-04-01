@@ -3,6 +3,15 @@
   var provider = new firebase.auth.GoogleAuthProvider();
 
   function FirebaseHandler() {
+    var config = {
+      apiKey: "AIzaSyDmwHF26leDx1UffZleWD4m7rFI1J_2xyM",
+      authDomain: "grid-quiz-game.firebaseapp.com",
+      databaseURL: "https://grid-quiz-game.firebaseio.com",
+      projectId: "grid-quiz-game",
+      storageBucket: "grid-quiz-game.appspot.com",
+      messagingSenderId: "780090118711"
+    };
+    firebase.initializeApp(config);
     console.log("firebasehandler constructor called");
   };
 
@@ -24,9 +33,6 @@
       console.log("Error user email: " + email);
     });
   });
-
-
-
   App.FirebaseHandler = FirebaseHandler;
   window.App = App;
 })(window);
