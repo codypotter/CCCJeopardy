@@ -1,16 +1,4 @@
 # CCCJeopardy
+One of our professors at Clackamas Community College (CCC) used a Jeopardy-like program to help us review for the class' final, and this is that program rewritten.
 
-Developers must copy/paste the first JavaScript script tag into index.html in
-order to edit this project - it is not included in the source code for obvious
-security reasons. This bit of script can be found after logging into Qrid Quiz
-Game's firebase console and copy/pasting the code that pops up after hitting
-"Add Firebase to your web app."
-
-Do not leave the previously pasted code in the index.html when you push to GitHub.
-
-This app is also deployed using Firebase's CLI, which you will need to install
-in order to redeploy (it's available as an npm package).
-	$ npm install -g firebase-tools
-Redeploy with
-	$ firebase deploy
-
+He wrote it a while ago and frequently runs into issues getting it to run - most commonly the port he assignmed it to was used by somehting else. As a result, he proposed that some of his students should rebuild it as a good practice project, and here we are.
