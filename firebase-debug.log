@@ -1,70 +1,26 @@
-[debug] [2018-04-01T19:03:31.868Z] ----------------------------------------------------------------------
-[debug] [2018-04-01T19:03:31.871Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\enjoi\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase deploy
-[debug] [2018-04-01T19:03:31.871Z] CLI Version:   3.17.7
-[debug] [2018-04-01T19:03:31.871Z] Platform:      win32
-[debug] [2018-04-01T19:03:31.871Z] Node Version:  v8.9.3
-[debug] [2018-04-01T19:03:31.872Z] Time:          Sun Apr 01 2018 12:03:31 GMT-0700 (Pacific Daylight Time)
-[debug] [2018-04-01T19:03:31.872Z] ----------------------------------------------------------------------
+[debug] [2018-04-01T19:13:00.586Z] ----------------------------------------------------------------------
+[debug] [2018-04-01T19:13:00.588Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\enjoi\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase deploy
+[debug] [2018-04-01T19:13:00.588Z] CLI Version:   3.17.7
+[debug] [2018-04-01T19:13:00.588Z] Platform:      win32
+[debug] [2018-04-01T19:13:00.588Z] Node Version:  v8.9.3
+[debug] [2018-04-01T19:13:00.589Z] Time:          Sun Apr 01 2018 12:13:00 GMT-0700 (Pacific Daylight Time)
+[debug] [2018-04-01T19:13:00.589Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2018-04-01T19:03:31.882Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2018-04-01T19:03:31.883Z] > authorizing via signed-in user
-[debug] [2018-04-01T19:03:31.884Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
-[debug] [2018-04-01T19:03:31.885Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
- { refresh_token: '1/TUyKp_p19VB47jI-M84tF6OmaehbYiTdGtcGVGwulkw',
-  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
-  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
-  grant_type: 'refresh_token',
-  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
- Sun Apr 01 2018 12:03:31 GMT-0700 (Pacific Daylight Time)
-[debug] [2018-04-01T19:03:32.095Z] <<< HTTP RESPONSE 200
-[debug] [2018-04-01T19:03:32.099Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/grid-quiz-game  
+[debug] [2018-04-01T19:13:00.600Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-04-01T19:13:00.600Z] > authorizing via signed-in user
+[debug] [2018-04-01T19:13:00.602Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/grid-quiz-game  
   
- Sun Apr 01 2018 12:03:32 GMT-0700 (Pacific Daylight Time)
-[debug] [2018-04-01T19:03:32.560Z] <<< HTTP RESPONSE 200
-[debug] [2018-04-01T19:03:32.560Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/grid-quiz-game/tokens  
+ Sun Apr 01 2018 12:13:00 GMT-0700 (Pacific Daylight Time)
+[debug] [2018-04-01T19:13:01.060Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-01T19:13:01.061Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/grid-quiz-game/tokens  
   
- Sun Apr 01 2018 12:03:32 GMT-0700 (Pacific Daylight Time)
-[debug] [2018-04-01T19:03:32.997Z] <<< HTTP RESPONSE 200
-[info] 
-[info] === Deploying to 'grid-quiz-game'...
-[info] 
-[info] i  deploying hosting
-[debug] [2018-04-01T19:03:33.479Z] TypeError: Path must be a string. Received [ 'public', 'images', 'scripts', 'stylesheets' ]
-    at assertPath (path.js:28:11)
-    at Object.resolve (path.js:221:7)
-    at module.exports (C:\Users\enjoi\AppData\Roaming\npm\node_modules\firebase-tools\lib\resolveProjectPath.js:7:15)
-    at module.exports (C:\Users\enjoi\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\hosting\prepare.js:28:39)
-    at _chain (C:\Users\enjoi\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js:23:45)
-    at C:\Users\enjoi\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js:77:12
-    at tryCatch (C:\Users\enjoi\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\rsvp\dist\rsvp.js:525:12)
-    at invokeCallback (C:\Users\enjoi\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\rsvp\dist\rsvp.js:538:13)
-    at C:\Users\enjoi\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\rsvp\dist\rsvp.js:606:14
-    at flush (C:\Users\enjoi\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\rsvp\dist\rsvp.js:2415:5)
-[error] 
-[error] Error: An unexpected error has occurred.
-[debug] [2018-04-01T19:05:08.599Z] ----------------------------------------------------------------------
-[debug] [2018-04-01T19:05:08.601Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\enjoi\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase deploy
-[debug] [2018-04-01T19:05:08.601Z] CLI Version:   3.17.7
-[debug] [2018-04-01T19:05:08.601Z] Platform:      win32
-[debug] [2018-04-01T19:05:08.601Z] Node Version:  v8.9.3
-[debug] [2018-04-01T19:05:08.602Z] Time:          Sun Apr 01 2018 12:05:08 GMT-0700 (Pacific Daylight Time)
-[debug] [2018-04-01T19:05:08.602Z] ----------------------------------------------------------------------
-[debug] 
-[debug] [2018-04-01T19:05:08.613Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2018-04-01T19:05:08.613Z] > authorizing via signed-in user
-[debug] [2018-04-01T19:05:08.615Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/grid-quiz-game  
-  
- Sun Apr 01 2018 12:05:08 GMT-0700 (Pacific Daylight Time)
-[debug] [2018-04-01T19:05:09.115Z] <<< HTTP RESPONSE 200
-[debug] [2018-04-01T19:05:09.115Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/grid-quiz-game/tokens  
-  
- Sun Apr 01 2018 12:05:09 GMT-0700 (Pacific Daylight Time)
-[debug] [2018-04-01T19:05:09.592Z] <<< HTTP RESPONSE 200
+ Sun Apr 01 2018 12:13:01 GMT-0700 (Pacific Daylight Time)
+[debug] [2018-04-01T19:13:01.463Z] <<< HTTP RESPONSE 200
 [info] 
 [info] === Deploying to 'grid-quiz-game'...
 [info] 
 [info] i  deploying database, hosting
-[debug] [2018-04-01T19:05:10.036Z] Error: ENOENT: no such file or directory, open 'C:\Users\enjoi\Documents\projects\Jeopardy\database.rules.json'
+[debug] [2018-04-01T19:13:01.964Z] Error: ENOENT: no such file or directory, open 'C:\Users\enjoi\Documents\projects\Jeopardy\database.rules.json'
     at Object.fs.openSync (fs.js:646:18)
     at Object.fs.readFileSync (fs.js:551:33)
     at Config.readProjectFile (C:\Users\enjoi\AppData\Roaming\npm\node_modules\firebase-tools\lib\config.js:151:22)
@@ -75,5 +31,95 @@
     at Function.forEach (C:\Users\enjoi\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\lodash\lodash.js:9334:14)
     at module.exports (C:\Users\enjoi\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\database\prepare.js:50:5)
     at _chain (C:\Users\enjoi\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js:23:45)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2018-04-01T19:14:26.283Z] ----------------------------------------------------------------------
+[debug] [2018-04-01T19:14:26.285Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\enjoi\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase deploy
+[debug] [2018-04-01T19:14:26.285Z] CLI Version:   3.17.7
+[debug] [2018-04-01T19:14:26.285Z] Platform:      win32
+[debug] [2018-04-01T19:14:26.285Z] Node Version:  v8.9.3
+[debug] [2018-04-01T19:14:26.286Z] Time:          Sun Apr 01 2018 12:14:26 GMT-0700 (Pacific Daylight Time)
+[debug] [2018-04-01T19:14:26.286Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-04-01T19:14:26.296Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-04-01T19:14:26.296Z] > authorizing via signed-in user
+[debug] [2018-04-01T19:14:26.298Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/grid-quiz-game  
+  
+ Sun Apr 01 2018 12:14:26 GMT-0700 (Pacific Daylight Time)
+[debug] [2018-04-01T19:14:26.837Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-01T19:14:26.837Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/grid-quiz-game/tokens  
+  
+ Sun Apr 01 2018 12:14:26 GMT-0700 (Pacific Daylight Time)
+[debug] [2018-04-01T19:14:27.353Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'grid-quiz-game'...
+[info] 
+[info] i  deploying database, hosting
+[info] i  database: checking rules syntax...
+[debug] [2018-04-01T19:14:27.720Z] >>> HTTP REQUEST PUT https://grid-quiz-game.firebaseio.com/.settings/rules.json?dryRun=true  
+ {
+  "rules": {
+    ".read": "auth != null",
+    ".write": "auth != null"
+  }
+}
+ 
+ Sun Apr 01 2018 12:14:27 GMT-0700 (Pacific Daylight Time)
+[debug] [2018-04-01T19:14:28.626Z] <<< HTTP RESPONSE 200
+[info] +  database: rules syntax for database grid-quiz-game is valid
+[debug] [2018-04-01T19:14:28.727Z] TypeError: Path must be a string. Received [ 'public', 'images', 'scripts', 'stylesheets' ]
+    at assertPath (path.js:28:11)
+    at Object.resolve (path.js:221:7)
+    at module.exports (C:\Users\enjoi\AppData\Roaming\npm\node_modules\firebase-tools\lib\resolveProjectPath.js:7:15)
+    at module.exports (C:\Users\enjoi\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\hosting\prepare.js:28:39)
+    at _chain (C:\Users\enjoi\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js:23:45)
+    at C:\Users\enjoi\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js:26:14
+    at <anonymous>
+    at process._tickDomainCallback (internal/process/next_tick.js:228:7)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2018-04-01T19:21:13.153Z] ----------------------------------------------------------------------
+[debug] [2018-04-01T19:21:13.155Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\enjoi\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase deploy
+[debug] [2018-04-01T19:21:13.155Z] CLI Version:   3.17.7
+[debug] [2018-04-01T19:21:13.155Z] Platform:      win32
+[debug] [2018-04-01T19:21:13.155Z] Node Version:  v8.9.3
+[debug] [2018-04-01T19:21:13.156Z] Time:          Sun Apr 01 2018 12:21:13 GMT-0700 (Pacific Daylight Time)
+[debug] [2018-04-01T19:21:13.156Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-04-01T19:21:13.166Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-04-01T19:21:13.167Z] > authorizing via signed-in user
+[debug] [2018-04-01T19:21:13.168Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/grid-quiz-game  
+  
+ Sun Apr 01 2018 12:21:13 GMT-0700 (Pacific Daylight Time)
+[debug] [2018-04-01T19:21:13.701Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-01T19:21:13.702Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/grid-quiz-game/tokens  
+  
+ Sun Apr 01 2018 12:21:13 GMT-0700 (Pacific Daylight Time)
+[debug] [2018-04-01T19:21:14.222Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'grid-quiz-game'...
+[info] 
+[info] i  deploying database, hosting
+[info] i  database: checking rules syntax...
+[debug] [2018-04-01T19:21:14.577Z] >>> HTTP REQUEST PUT https://grid-quiz-game.firebaseio.com/.settings/rules.json?dryRun=true  
+ {
+  "rules": {
+    ".read": "auth != null",
+    ".write": "auth != null"
+  }
+}
+ 
+ Sun Apr 01 2018 12:21:14 GMT-0700 (Pacific Daylight Time)
+[debug] [2018-04-01T19:21:15.010Z] <<< HTTP RESPONSE 200
+[info] +  database: rules syntax for database grid-quiz-game is valid
+[debug] [2018-04-01T19:21:15.145Z] TypeError: Path must be a string. Received [ 'public', 'images', 'scripts', 'stylesheets' ]
+    at assertPath (path.js:28:11)
+    at Object.resolve (path.js:221:7)
+    at module.exports (C:\Users\enjoi\AppData\Roaming\npm\node_modules\firebase-tools\lib\resolveProjectPath.js:7:15)
+    at module.exports (C:\Users\enjoi\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\hosting\prepare.js:28:39)
+    at _chain (C:\Users\enjoi\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js:23:45)
+    at C:\Users\enjoi\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js:26:14
+    at <anonymous>
+    at process._tickDomainCallback (internal/process/next_tick.js:228:7)
 [error] 
 [error] Error: An unexpected error has occurred.
