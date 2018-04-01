@@ -1,0 +1,138 @@
+/*
+  Color Palette:  #1A2830
+                  #2f4858
+                  #33658A
+                  #86BBD8
+                  #F6AE2D
+                  #F26419
+*/
+
+html, body {
+  height: 100%;
+  background: #2F4858;
+  color: #1A2830;
+  font-family: 'Roboto', sans-serif;
+  min-width: 800px;
+  min-height: 600px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper {
+  height: 100%;
+  overflow: hidden;
+}
+
+.intro-sidebar {
+  background: #1A2830;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  padding-top: 60px;
+  transition: 0.7s;
+  transition-timing-function: ease-in-out;
+}
+
+.main {
+  margin-left: 178px;
+  height: 100vh;
+}
+
+.app-title {
+  text-align: center;
+}
+
+.button-grid {
+  margin: 0.5%;
+  max-height: 100vh;
+  display: grid;
+  grid-template-columns: 19.2% 19.2% 19.2% 19.2% 19.2%;
+  grid-template-rows: 15.5% 15.5% 15.5% 15.5% 15.5% 15.5%;
+  align-items: stretch;
+  grid-column-gap: 0.5%;
+  grid-row-gap: 0.5%;
+}
+
+.button {
+  background: #33658A;
+  border-radius: 2px;
+  color: white;
+}
+
+.button-title {
+  text-align: center;
+  font-size: 2em;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.google-login-button {
+  width: 250px;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -25px;
+  margin-left: -25px;
+}
+
+.title-button {
+  background: #F6AE2D;
+  color: #1A2830;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Nunito', sans-serif;
+}
+
+.login-container {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background: #2f4858;
+  border-radius: 5px;
+  height: 200px;
+  width: 500px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -100px 0 0 -250px;
+}
+
+.login-container-side1 {
+  float: left;
+  background: #33658A;
+  height: 200px;
+  width: 200px;
+  border-radius: 5px 0 0 5px;
+}
+
+.login-container-side1-icon {
+  position: relative;
+  width: 50px;
+  right: -75px;
+  top: 50px;
+}
+
+.login-container-side1-title {
+  position: relative;
+  font-family: 'Pacifico', cursive;
+  color: white;
+  text-align: center;
+  top: 25px;
+}
+
+.login-container-greeting {
+  font-family: 'Roboto', sans-serif;
+  position: relative;
+  top: 20px;
+  text-align: center;
+  color: white;
+}
