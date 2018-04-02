@@ -47,6 +47,9 @@ html, body {
 
 .app-title {
   text-align: center;
+  color: #F6AE2D;
+  padding: 0 0 0 0;
+  margin: -40px 15px 15px 15px;
 }
 
 .button-grid {
