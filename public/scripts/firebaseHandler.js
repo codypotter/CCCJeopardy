@@ -39,8 +39,6 @@
     });
   });
 
-
-
   $('.google-login-button').click(function(e) {
     firebase.auth().signInWithPopup(provider).then(function(result) {
       var token = result.credential.accessToken;
