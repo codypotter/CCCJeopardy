@@ -1,0 +1,37 @@
+Game set up
+1. login for instructor
+2. create a new quiz
+3. save that quiz to firebase
+4. generate url to that game
+5. if user is authenticated full write access to the database. 
+6. look into firebase rules for read/write on specific parts of the tree.
+7. JSON tree
+	Users
+		Richa
+			Quiz1
+				Question1
+				Question2
+		JenM
+	Buzzer
+		uniqueGameID:
+
+User Set up
+1. Follow link to the game
+2. Read the url parameters to get the game ID. 
+3. Read game from firebase @gameID
+
+Firebase stuffs
+1. read a specific value
+2. write a value
+3. create a listener
+
+Buzzing in
+we could do it as a listener for each user, and then when they buzz in, it turns their individual listener off
+so then if someone hit the buzzer, and answered wrong,
+then the next person who hit it would get to answer next instead of restarting the order
+
+Reading Questions
+1. Read character by character
+2. Buzzer listener should interrupt this process. 
+3. If user gets it wrong, it should show the rest of the question.
+
