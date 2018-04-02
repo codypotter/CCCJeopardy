@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "grid-quiz-game"
+    "default": "grid-quiz-game",
+    "grid-quiz-game": "grid-quiz-game"
   }
 }
