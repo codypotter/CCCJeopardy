@@ -136,3 +136,10 @@ h1, h2, h3, h4, h5 {
   text-align: center;
   color: white;
 }
+
+.anonymous-sign-in-link {
+  position: relative;
+  top: 75px;
+  text-align: center;
+  display: block;
+}

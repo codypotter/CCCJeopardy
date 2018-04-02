@@ -15,6 +15,32 @@
     console.log("firebasehandler constructor called");
   };
 
+  $('.anonymous-sign-in-link').click(function(e) {
+    e.preventDefault();
+    firebase.auth().signInAnonymously().catch(function(error) {
+      //TODO: handle sign in error.
+      //      If anonymous sign-in fails, firebase is messing up big-time
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log("an error occurred");
+    });
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // User is signed in.
+        var isAnonymous = user.isAnonymous;
+        var uid = user.uid;
+        console.log(uid);
+        var uh = new App.UIHandler();
+        uh.login();
+      } else {
+        //TODO: handle user signed out somehow?
+        window.location.reload(false);
+      }
+    });
+  });
+
+
+
   $('.google-login-button').click(function(e) {
     firebase.auth().signInWithPopup(provider).then(function(result) {
       var token = result.credential.accessToken;
@@ -23,7 +49,9 @@
       var uh = new App.UIHandler();
       uh.login();
     }).catch(function(error) {
-      // Handle Errors here.
+      //TODO: handle google sign in error.
+      //      If google sign in fails, we need to display an error, and reload
+      //      the page.
       var errorCode = error.code;
       var errorMessage = error.message;
       var email = error.email;
