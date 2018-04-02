@@ -1,6 +1,0 @@
-add title to sidebar and make the options drop down accordians in the sidebar
-
-play a quiz w/ url (?quizID=[uniqueQuizID])
-create a new quiz
-edit a quiz
-

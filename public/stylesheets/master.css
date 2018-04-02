@@ -50,6 +50,7 @@ html, body {
   color: #F6AE2D;
   padding: 0 0 0 0;
   margin: -40px 15px 15px 15px;
+  display: block;
 }
 
 .button-grid {
@@ -93,7 +94,7 @@ html, body {
   color: #1A2830;
 }
 
-h1, h2, h3, h4, h5 {
+h1, h2, h3, h4, h5, a {
   font-family: 'Nunito', sans-serif;
 }
 
@@ -139,3 +140,60 @@ h1, h2, h3, h4, h5 {
   text-align: center;
   color: white;
 }
+
+/* Dropdown Button */
+.dropbtn {
+  background-color: #2f4858;
+  display: block;
+  text-align: center;
+  color: white;
+  width: 180px;
+  padding: 10px 10px 10px 10px;
+  margin: 0 10px 5px 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 2px;
+  display: block;
+  clear: both;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  float: right;
+  display: block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  color: white;
+  background-color: #33658A;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+   color: white;
+   padding: 12px 16px;
+   text-decoration: none;
+   display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #86BBD8;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    background-color: #F6AE2D;
+}
+
