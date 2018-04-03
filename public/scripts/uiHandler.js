@@ -3,6 +3,7 @@
 the log in box, push the background to the left (making a side bar), and
 reveals a lighter background where the current selected option will reside.
 -----------------------------------------------------------------------------*/
+// TODO (I'll get this set up): use modules to have individual files that create/edit/play
 (function(window) {
   'use strict';
   var App = window.App || {};
