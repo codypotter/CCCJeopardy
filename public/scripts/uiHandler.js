@@ -4,10 +4,6 @@ the log in box, push the background to the left (making a side bar), and
 reveals a lighter background where the current selected option will reside.
 -----------------------------------------------------------------------------*/
 
-// TODO: make each user have IDs of games, and put those in the root layer of the
-// data so it isn't loading all the games at once
-
-// TODO: use modules to have individual files that create/edit/play
 // TODO: make the drop down loaders include the games already on the server
 // TODO: generalize the dropdown html into a function(?)
 // TODO: put current selected option into not sidebar part of wrapper
@@ -33,21 +29,24 @@ reveals a lighter background where the current selected option will reside.
 })(window);
 
 
-// ----------------------------------------------------------------------------
+// TODO: import these from other files ----------------------------------------
 
 
 function modifySidebar() {
   $('.intro-sidebar').width('200px');
   $('.intro-sidebar').append('<h1 class="app-title">Grid Quiz</h1>');
 
-  buildPlayGameDropdown();
+  var playerID = firebase.auth().currentUser.uid;
+  var playerRef = firebase.database().ref("players/" + playerID);
 
-  buildEditGameDropdown();
+  buildPlayGameDropdown(playerRef);
 
-  buildCreateGameDropdown();
+  buildEditGameDropdown(playerRef);
+
+  buildCreateGameDropdown(playerRef);
 }
 
-function buildPlayGameDropdown() {
+function buildPlayGameDropdown(playerRef) {
   var playGameDropdown = `
     <div class="dropdown">
       <button class="dropbtn">Play a Game</button>
@@ -62,7 +61,7 @@ function buildPlayGameDropdown() {
   $('.intro-sidebar').append(playGameDropdown);
 }
 
-function buildEditGameDropdown() {
+function buildEditGameDropdown(playerRef) {
   var editGameDropdown = `
     <div class="dropdown">
       <button class="dropbtn">Edit a Game</button>
@@ -77,7 +76,7 @@ function buildEditGameDropdown() {
   $('.intro-sidebar').append(editGameDropdown);
 }
 
-function buildCreateGameDropdown() {
+function buildCreateGameDropdown(playerRef) {
   var createGameDropdown = `
     <div class="dropdown">
       <button class="dropbtn">Create a Game</button>
