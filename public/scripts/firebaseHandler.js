@@ -1,6 +1,5 @@
 (function(window) {
   var App = window.App || {};
-  var Quiz = App.Quiz;
   var provider = new firebase.auth.GoogleAuthProvider();
 
   function FirebaseHandler() {
@@ -50,9 +49,10 @@
       var quizList = [];
 
       quizIDRef.on('child_added', function(data) {
-        var newQuiz = new Quiz(data.key, data.value);
+        var newQuiz = new App.Quiz(data.key, data.val());
+console.log("Added: " + newQuiz.quizName);
         quizList.push(newQuiz);
-      };
+      });
       uh.login(quizList);
     }).catch(function(error) {
       //TODO: handle google sign in error.

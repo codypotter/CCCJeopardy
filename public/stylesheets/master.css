@@ -175,6 +175,7 @@ h1, h2, h3, h4, h5, a {
 .dropdown-content {
   display: none;
   position: absolute;
+  margin-left: 100px;
   color: white;
   background-color: #33658A;
   min-width: 160px;
