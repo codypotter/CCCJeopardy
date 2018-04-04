@@ -15,23 +15,23 @@ reveals a lighter background where the current selected option will reside.
 
   };
 
-  UIHandler.prototype.login = function(quizList){
+
+  UIHandler.prototype.login = function(quizIDs, quizNames){
     var loginContainer = $('.login-container');
     loginContainer.remove();
 
-    modifySidebar(quizList);
+    modifySidebar(quizIDs, quizNames);
   };
 
-  function modifySidebar(quizList) {
+
+  function modifySidebar(quizIDs, quizNames) {
     $('.intro-sidebar').width('200px');
     $('.intro-sidebar').append('<h1 class="app-title">Grid Quiz</h1>');
 
-console.log(quizList);
-
     // TODO: make the anchor a button
-    constructDropdown(quizList, "Play a Game");
+    constructDropdown(quizIDs, quizNames, "Play a Game");
 
-    constructDropdown(quizList, "Edit a Game");
+    constructDropdown(quizIDs, quizNames, "Edit a Game");
 
     var createGameDropdown = `
       <div class="dropdown">
@@ -42,19 +42,19 @@ console.log(quizList);
     $('.intro-sidebar').append(createGameDropdown);
   }
 
-  function constructDropdown(quizList, buttonTitle) {
+  function constructDropdown(quizIDs, quizNames, buttonTitle) {
     var theHtml = `
       <div class="dropdown">
         <button class="dropbtn"> ` + buttonTitle + `</button>
         <div class="dropdown-content">
     `;
 
-    if (quizList.length === 0) {
+    if (quizNames.length === 0) {
       theHtml += '<a href="#">No Games</a>';
 
     } else {
-      for (var counter = 0; counter < quizList.length; counter++) {
-        theHtml += '<a href="#">' + quizList[counter].quizName + '</a>';
+      for (var counter = 0; counter < quizNames.length; counter++) {
+        theHtml += '<a href="#">' + quizNames[counter] + '</a>';
       }
     }
 
@@ -65,6 +65,7 @@ console.log(quizList);
 
     $('.intro-sidebar').append(theHtml);
   }
+
 
   App.UIHandler = UIHandler;
   window.App = App;
