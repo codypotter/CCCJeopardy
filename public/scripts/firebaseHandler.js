@@ -1,6 +1,6 @@
 (function(window) {
+  'use strict';
   var App = window.App || {};
-  var Quiz = App.Quiz;
   var provider = new firebase.auth.GoogleAuthProvider();
 
   function FirebaseHandler() {
@@ -44,16 +44,26 @@
     firebase.auth().signInWithPopup(provider).then(function(result) {
       var token = result.credential.accessToken;
       var user = result.user;
-      console.log(user);
       var uh = new App.UIHandler();
       var quizIDRef = firebase.database().ref('users/' + user.uid + '/userQuizzes');
-      var quizList = [];
 
-      quizIDRef.on('child_added', function(data) {
-        var newQuiz = new Quiz(data.key, data.value);
-        quizList.push(newQuiz);
-      };
-      uh.login(quizList);
+      quizIDRef.on('value', function(data) {
+        // TODO: delete/rebuild buttons if needed
+
+        var playersQuizzes = data.val();
+        var quizIDs = [];
+        var quizNames = [];
+
+        // cycle through each property/key pair and put into own arrays
+        for (var key in playersQuizzes) {
+          quizIDs.push(key);
+          quizNames.push(playersQuizzes[key]);
+        }
+
+        // build the buttons
+        uh.login(quizIDs, quizNames);
+      });
+
     }).catch(function(error) {
       //TODO: handle google sign in error.
       //      If google sign in fails, we need to display an error, and reload
@@ -67,6 +77,8 @@
       console.log("Error user email: " + email);
     });
   });
+
   App.FirebaseHandler = FirebaseHandler;
   window.App = App;
 })(window);
+

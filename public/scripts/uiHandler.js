@@ -4,9 +4,6 @@ the log in box, push the background to the left (making a side bar), and
 reveals a lighter background where the current selected option will reside.
 -----------------------------------------------------------------------------*/
 
-// TODO: make the drop down loaders include the games already on the server
-//	make it communicate that there's nothing if there's no stuff to load
-// TODO: generalize the dropdown html into a function(?)
 // TODO: put current selected option into not sidebar part of wrapper
 
 (function(window) {
@@ -18,68 +15,57 @@ reveals a lighter background where the current selected option will reside.
 
   };
 
-  UIHandler.prototype.login = function(){
+
+  UIHandler.prototype.login = function(quizIDs, quizNames){
     var loginContainer = $('.login-container');
     loginContainer.remove();
 
-    modifySidebar();
+    modifySidebar(quizIDs, quizNames);
   };
 
-  function modifySidebar() {
+
+  function modifySidebar(quizIDs, quizNames) {
     $('.intro-sidebar').width('200px');
     $('.intro-sidebar').append('<h1 class="app-title">Grid Quiz</h1>');
 
-    var playerID = firebase.auth().currentUser.uid;
-    var playerRef = firebase.database().ref("players/" + playerID);
+    // TODO: make the anchor a button
+    constructDropdown(quizIDs, quizNames, "Play a Game");
 
-    buildPlayGameDropdown(playerRef);
+    constructDropdown(quizIDs, quizNames, "Edit a Game");
 
-    buildEditGameDropdown(playerRef);
-
-    buildCreateGameDropdown(playerRef);
-  }
-
-  function buildPlayGameDropdown(playerRef) {
-    var playGameDropdown = `
-      <div class="dropdown">
-        <button class="dropbtn">Play a Game</button>
-          <div class="dropdown-content">
-            <a href="#">Link 1</a>
-            <a href="#">Link 2</a>
-            <a href="#">Link 3</a>
-          </div>
-      </div>
-    `;
-
-    $('.intro-sidebar').append(playGameDropdown);
-  }
-
-  function buildEditGameDropdown(playerRef) {
-    var editGameDropdown = `
-      <div class="dropdown">
-        <button class="dropbtn">Edit a Game</button>
-          <div class="dropdown-content">
-            <a href="#">Link 1</a>
-            <a href="#">Link 2</a>
-            <a href="#">Link 3</a>
-          </div>
-      </div>
-    `;
-
-    $('.intro-sidebar').append(editGameDropdown);
-  }
-
-  function buildCreateGameDropdown(playerRef) {
     var createGameDropdown = `
       <div class="dropdown">
-        <button class="dropbtn">Create a Game</button>
-          <div class="dropdown-content">
-          </div>
+      <button class="dropbtn">Create a Game</button>
       </div>
     `;
 
     $('.intro-sidebar').append(createGameDropdown);
   }
+
+  function constructDropdown(quizIDs, quizNames, buttonTitle) {
+    var theHtml = `
+      <div class="dropdown">
+        <button class="dropbtn"> ` + buttonTitle + `</button>
+        <div class="dropdown-content">
+    `;
+
+    if (quizNames.length === 0) {
+      theHtml += '<a href="#">No Games</a>';
+
+    } else {
+      for (var counter = 0; counter < quizNames.length; counter++) {
+        theHtml += '<a href="#">' + quizNames[counter] + '</a>';
+      }
+    }
+
+    theHtml += `
+        </div>
+      </div>
+    `;
+
+    $('.intro-sidebar').append(theHtml);
+  }
+
 
   App.UIHandler = UIHandler;
   window.App = App;

@@ -5,7 +5,7 @@
   function Quiz(quizID, quizName) {
     this.quizID = quizID;
     this.quizName = quizName;
-  }
+  };
 
   App.Quiz = Quiz;
   window.App = App;
