@@ -1,0 +1,4 @@
+
+get the dropdowns to not be shit - put them in the main
+	make them an accordion if can't get it to work
+
