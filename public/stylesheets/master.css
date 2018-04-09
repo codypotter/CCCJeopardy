@@ -26,7 +26,15 @@ html, body {
   overflow: hidden;
 }
 
-.intro-sidebar {
+.white-text {
+  color: white;
+}
+
+.greeting {
+  text-align: center;
+}
+
+.intro {
   z-index: 1;
   background: #1A2830;
   height: 100%;
@@ -89,7 +97,7 @@ html, body {
   position: absolute;
   top: 50%;
   left: 50%;
-  margin-top: -25px;
+  margin-top: -30px;
   margin-left: -25px;
 }
 
@@ -147,7 +155,7 @@ h1, h2, h3, h4, h5, a {
 
 .anonymous-sign-in-link {
   position: relative;
-  top: 75px;
+  top: 150px;
   text-align: center;
   display: block;
 }
@@ -211,4 +219,3 @@ h1, h2, h3, h4, h5, a {
 .dropdown:hover .dropbtn {
     background-color: #F6AE2D;
 }
-

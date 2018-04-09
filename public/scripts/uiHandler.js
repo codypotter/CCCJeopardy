@@ -25,21 +25,7 @@ reveals a lighter background where the current selected option will reside.
 
 
   function modifySidebar(quizIDs, quizNames) {
-    $('.intro-sidebar').width('200px');
-    $('.intro-sidebar').append('<h1 class="app-title">Grid Quiz</h1>');
-
-    // TODO: make the anchor a button
-    constructDropdown(quizIDs, quizNames, "Play a Game");
-
-    constructDropdown(quizIDs, quizNames, "Edit a Game");
-
-    var createGameDropdown = `
-      <div class="dropdown">
-      <button class="dropbtn">Create a Game</button>
-      </div>
-    `;
-
-    $('.intro-sidebar').append(createGameDropdown);
+    $('.intro').width('0');
   }
 
   function constructDropdown(quizIDs, quizNames, buttonTitle) {
@@ -63,11 +49,10 @@ reveals a lighter background where the current selected option will reside.
       </div>
     `;
 
-    $('.intro-sidebar').append(theHtml);
+    $('.intro').append(theHtml);
   }
 
 
   App.UIHandler = UIHandler;
   window.App = App;
 })(window);
-
