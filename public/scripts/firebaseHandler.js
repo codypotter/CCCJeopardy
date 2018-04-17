@@ -20,7 +20,9 @@
   FirebaseHandler.prototype.getQuestions = function(quizID) {
       var quizRef = firebase.database().ref('quizzes/' + quizID +'/questions');
       quizRef.on('value', function(data) {
-          console.log(data.val());
+          var questionsObject = {name:"Poopin"};
+          console.log(questionsObject.name);
+          return questionsObject;
       });
   };
 

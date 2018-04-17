@@ -31,7 +31,7 @@ reveals a lighter background where the current selected option will reside.
   }
 
   function buildQuizList(quizIDs, quizNames) {
-    var tbody = $('.table-body');
+    var tbody = $('.quiz-list-table-body');
     for (var i = 0; i < quizIDs.length; i++) {
       var someHTML = `
         <tr>
@@ -45,6 +45,7 @@ reveals a lighter background where the current selected option will reside.
       `;
       tbody.append(someHTML);
     }
+    var quizContainer = $(".quiz-container");
     var playButton = $("input[name='play']").click(function(e) {
       console.log(e);
       e.target.style.backgroundColor = "#375f77";
@@ -56,7 +57,23 @@ reveals a lighter background where the current selected option will reside.
       e.target.style.backgroundColor = "#375f77";
       var quizListContainer = $('.quiz-list-container').empty();
       quizListContainer.width('0');
-      var questions = firebaseHandler.getQuestions(quizIDs[rowIndex]);
+      var questions = {};
+      questions = firebaseHandler.getQuestions(quizIDs[rowIndex]);
+      var questionHTML = `
+        <table>
+            <tr>
+                <td><div class="blurb">
+                    <div class="question-textarea">
+                        <textarea rows="3" cols="20" placeholder="Question"></textarea>
+                    </div>
+                    <div class="answer-textarea">
+                        <textarea rows="3" cols="20" placeholder="Answer"></textarea>
+                    </div>
+                </div></td>
+            </tr>
+        </table>
+      `;
+      quizContainer.append(questionHTML);
     });
   }
 

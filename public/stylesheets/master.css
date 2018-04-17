@@ -68,12 +68,25 @@ html, body {
   z-index: 1;
   height: 100%;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: fixed;
   top: 0;
   left: 0;
   overflow-x: hidden;
   transition: 0.7s;
   transition-timing-function: ease-in-out;
+}
+
+textarea {
+    resize: none;
+}
+
+.blurb {
+    background-color: #86BBD8;
+    border-radius: 2px;
+    width: 200px;
 }
 
 .main {
@@ -106,11 +119,11 @@ td {
   font-size: 20px;
 }
 
-tbody tr:hover {
+.quiz-list-table-body tr:hover {
   background-color: #375f77;
 }
 
-tbody tr {
+.quiz-list-table-body tr {
   border-top: 1px solid gray;
 }
 
