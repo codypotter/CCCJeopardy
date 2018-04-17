@@ -1,10 +1,12 @@
 /*
   Color Palette:  #1A2830
                   #2f4858
+                  #375f77
                   #33658A
                   #86BBD8
                   #F6AE2D
                   #F26419
+                  #49592f
 */
 
 html, body {
@@ -32,10 +34,11 @@ html, body {
 
 .greeting {
   text-align: center;
+  font-family: 'Pacifico', cursive;
 }
 
 .intro {
-  z-index: 1;
+  z-index: 3;
   background: #1A2830;
   height: 100%;
   width: 100%;
@@ -48,8 +51,29 @@ html, body {
   transition-timing-function: ease-in-out;
 }
 
-.main-page {
-  z-index: -1;
+.quiz-list-container {
+  background-color: inherit;
+  z-index: 2;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  transition: 0.7s;
+  transition-timing-function: ease-in-out;
+}
+
+.quiz-container {
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  transition: 0.7s;
+  transition-timing-function: ease-in-out;
 }
 
 .main {
@@ -63,6 +87,57 @@ html, body {
   padding: 0 0 0 0;
   margin: -40px 15px 15px 15px;
   display: block;
+}
+
+.quiz-list {
+  border-radius: 2px;
+  width: 100%;
+}
+
+th {
+  height: 40px;
+  color: gray;
+}
+
+td {
+  padding-left: 20px;
+  height: 60px;
+  color: white;
+  font-size: 20px;
+}
+
+tbody tr:hover {
+  background-color: #375f77;
+}
+
+tbody tr {
+  border-top: 1px solid gray;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table button {
+  margin-right: 20px;
+}
+
+.status-cell {
+  color: #9cbf65;
+}
+
+.action-cell {
+  text-align: right;
+}
+
+.action-button {
+  height: 30px;
+  border: 1px solid gray;
+  border-radius: 2px;
+  padding: 5px;
+  background-color: #2f4858;
+  margin-top: 5px;
+  margin-right: 5px;
 }
 
 .button-grid {

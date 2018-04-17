@@ -10,6 +10,7 @@ reveals a lighter background where the current selected option will reside.
   'use strict';
   var App = window.App || {};
   var $ = window.jQuery;
+  var FirebaseHandler = App.FirebaseHandler;
 
   function UIHandler() {
 
@@ -20,12 +21,43 @@ reveals a lighter background where the current selected option will reside.
     var loginContainer = $('.login-container');
     loginContainer.remove();
 
-    modifySidebar(quizIDs, quizNames);
+    modifySidebar();
+    buildQuizList(quizIDs, quizNames);
   };
 
 
-  function modifySidebar(quizIDs, quizNames) {
+  function modifySidebar() {
     $('.intro').width('0');
+  }
+
+  function buildQuizList(quizIDs, quizNames) {
+    var tbody = $('.table-body');
+    for (var i = 0; i < quizIDs.length; i++) {
+      var someHTML = `
+        <tr>
+          <td>${quizNames[i]}</td>
+          <td class="status-cell">&#9679; Ready</td>
+          <td class="action-cell">
+            <input type="image" name="play" src="images/play-button.png" class="action-button">
+            <input type="image" name="edit" src="images/edit-button.png" class="action-button">
+          </td>
+        </tr>
+      `;
+      tbody.append(someHTML);
+    }
+    var playButton = $("input[name='play']").click(function(e) {
+      console.log(e);
+      e.target.style.backgroundColor = "#375f77";
+      var quizListContainer = $('.quiz-list-container').empty();
+      quizListContainer.width('0');
+    });
+    var editButton = $("input[name='edit']").click(function(e) {
+      var rowIndex = e.target.parentNode.parentNode.rowIndex - 1;
+      e.target.style.backgroundColor = "#375f77";
+      var quizListContainer = $('.quiz-list-container').empty();
+      quizListContainer.width('0');
+      var questions = App.FirebaseHandler.getQuestions(quizIDs[rowIndex]);
+    });
   }
 
   function constructDropdown(quizIDs, quizNames, buttonTitle) {

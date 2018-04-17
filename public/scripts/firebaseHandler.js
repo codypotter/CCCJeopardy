@@ -16,6 +16,10 @@
     console.log("firebasehandler constructor called");
   };
 
+  FirebaseHandler.prototype.getQuestions = function(quizID) {
+    console.log("get questions called");
+  };
+
   $('.anonymous-sign-in-link').click(function(e) {
     e.preventDefault();
     firebase.auth().signInAnonymously().catch(function(error) {
@@ -31,7 +35,7 @@
         var isAnonymous = user.isAnonymous;
         var uid = user.uid;
         console.log(uid);
-        var uh = new App.UIHandler();
+        var uh = App.UIHandler();
         uh.login();
       } else {
         //TODO: handle user signed out somehow?
@@ -81,4 +85,3 @@
   App.FirebaseHandler = FirebaseHandler;
   window.App = App;
 })(window);
-
