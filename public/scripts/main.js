@@ -6,6 +6,7 @@
   var UIHandler = App.UIHandler;
   var $ = window.$;
   var fh = new FirebaseHandler();
+  window.FirebaseHandler = fh;
   /*  Firebase Demo
   var demoRef = firebase.database().ref('demo');
   demoRef.on('value', function(snapshot) {

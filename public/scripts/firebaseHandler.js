@@ -12,12 +12,16 @@
       storageBucket: "grid-quiz-game.appspot.com",
       messagingSenderId: "780090118711"
     };
-    firebase.initializeApp(config);
-    console.log("firebasehandler constructor called");
+    if (!firebase.apps.length) {
+        firebase.initializeApp(config);
+    }
   };
 
   FirebaseHandler.prototype.getQuestions = function(quizID) {
-    console.log("get questions called");
+      var quizRef = firebase.database().ref('quizzes/' + quizID +'/questions');
+      quizRef.on('value', function(data) {
+          console.log(data.val());
+      });
   };
 
   $('.anonymous-sign-in-link').click(function(e) {

@@ -11,11 +11,11 @@ reveals a lighter background where the current selected option will reside.
   var App = window.App || {};
   var $ = window.jQuery;
   var FirebaseHandler = App.FirebaseHandler;
+  var firebaseHandler = new FirebaseHandler();
 
   function UIHandler() {
 
   };
-
 
   UIHandler.prototype.login = function(quizIDs, quizNames){
     var loginContainer = $('.login-container');
@@ -56,7 +56,7 @@ reveals a lighter background where the current selected option will reside.
       e.target.style.backgroundColor = "#375f77";
       var quizListContainer = $('.quiz-list-container').empty();
       quizListContainer.width('0');
-      var questions = App.FirebaseHandler.getQuestions(quizIDs[rowIndex]);
+      var questions = firebaseHandler.getQuestions(quizIDs[rowIndex]);
     });
   }
 
