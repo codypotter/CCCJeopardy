@@ -59,24 +59,46 @@ reveals a lighter background where the current selected option will reside.
       quizListContainer.width('0');
       var questions = {};
       questions = firebaseHandler.getQuestions(quizIDs[rowIndex]);
-      var questionHTML = `
-        <table>
-            <tr>
-                <td><div class="blurb">
-                    <div class="question-textarea">
-                        <textarea rows="3" cols="20" placeholder="Question"></textarea>
+      var tableHTML = $('<table></table>')
+      for (var j = 0; j < 6; j++) {
+          var tableRowHTML = $('<tr></tr>')
+          for (var k = 0; k < 6; k++) {
+              if (j == 0) {
+                  var blurbHTML = `
+                  <td><div class="blurb category">
+                    <div class="category-textarea">
+                        <textarea rows="2" cols="10" placeholder="Category"></textarea>
                     </div>
-                    <div class="answer-textarea">
-                        <textarea rows="3" cols="20" placeholder="Answer"></textarea>
-                    </div>
-                </div></td>
-            </tr>
-        </table>
+                  </div></td>
+                  `;
+              } else {
+                  var blurbHTML = `
+                  <td><div class="blurb">
+                      <div class="question-textarea">
+                          <textarea rows="2" cols="10" placeholder="Question"></textarea>
+                      </div>
+                      <div class="answer-textarea">
+                          <textarea rows="2" cols="10" placeholder="Answer"></textarea>
+                      </div>
+                  </div></td>
+                  `;
+              }
+
+              tableRowHTML.append(blurbHTML);
+              tableHTML.append(tableRowHTML);
+          }
+          quizContainer.append(tableHTML);
+      }
+      var completionBarHTML = `
+        <div class="bottom-bar">
+            <a><div class="save commit-button">Commit Changes</div><a>
+            <a><div class="save discard-button">...or discard</div><a>
+        </div>
       `;
-      quizContainer.append(questionHTML);
+      quizContainer.append(completionBarHTML);
     });
   }
-
+  /**/
   function constructDropdown(quizIDs, quizNames, buttonTitle) {
     var theHtml = `
       <div class="dropdown">
