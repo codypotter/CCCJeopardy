@@ -3,6 +3,7 @@
   var App = window.App || {};
   var provider = new firebase.auth.GoogleAuthProvider();
 
+
   function FirebaseHandler() {
     var config = {
       apiKey: "AIzaSyDmwHF26leDx1UffZleWD4m7rFI1J_2xyM",
@@ -18,11 +19,11 @@
   };
 
   FirebaseHandler.prototype.getQuestions = function(quizID) {
+      var uh = new App.UIHandler();
       var quizRef = firebase.database().ref('quizzes/' + quizID +'/questions');
       quizRef.on('value', function(data) {
-          var questionsObject = {name:"Poopin"};
-          console.log(questionsObject.name);
-          return questionsObject;
+          var questionsObject = data.val();
+          uh.fillInEditQuiz(questionsObject);
       });
   };
 
@@ -54,12 +55,12 @@
     firebase.auth().signInWithPopup(provider).then(function(result) {
       var token = result.credential.accessToken;
       var user = result.user;
-      var uh = new App.UIHandler();
+
       var quizIDRef = firebase.database().ref('users/' + user.uid + '/userQuizzes');
 
       quizIDRef.on('value', function(data) {
         // TODO: delete/rebuild buttons if needed
-
+        var uh = new App.UIHandler();
         var playersQuizzes = data.val();
         var quizIDs = [];
         var quizNames = [];

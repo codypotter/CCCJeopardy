@@ -21,12 +21,46 @@ reveals a lighter background where the current selected option will reside.
     var loginContainer = $('.login-container');
     loginContainer.remove();
 
-    modifySidebar();
+    hideIntro();
     buildQuizList(quizIDs, quizNames);
   };
 
+  UIHandler.prototype.fillInEditQuiz = function(questions) {
+      console.log(questions);
+      var tableHTML = $('<table class="edit-quiz-table"></table>')
+      for (var j = 0; j < 6; j++) {
+          var tableRowHTML = $('<tr></tr>')
+          for (var k = 0; k < 6; k++) {
+              if (j == 0) {
+                  var blurbHTML = `
+                  <td><div class="blurb category">
+                    <div class="category-textarea-container">
+                        <textarea rows="2" cols="10" placeholder="Category ` + (k+1) + `"></textarea>
+                    </div>
+                  </div></td>
+                  `;
+              } else {
+                  var blurbHTML = `
+                  <td><div class="blurb">
+                      <div class="question-textarea-container">
+                          <textarea rows="2" cols="10" placeholder="Question"></textarea>
+                      </div>
+                      <div class="answer-textarea-container">
+                          <textarea rows="2" cols="10" placeholder="Answer"></textarea>
+                      </div>
+                  </div></td>
+                  `;
+              }
 
-  function modifySidebar() {
+              tableRowHTML.append(blurbHTML);
+              tableHTML.append(tableRowHTML);
+          }
+          var quizContainer = $(".quiz-container");
+          quizContainer.append(tableHTML);
+      }
+  };
+
+  function hideIntro() {
     $('.intro').width('0');
   }
 
@@ -55,40 +89,10 @@ reveals a lighter background where the current selected option will reside.
     var editButton = $("input[name='edit']").click(function(e) {
       var rowIndex = e.target.parentNode.parentNode.rowIndex - 1;
       e.target.style.backgroundColor = "#375f77";
-      var quizListContainer = $('.quiz-list-container').empty();
-      quizListContainer.width('0');
-      var questions = {};
-      questions = firebaseHandler.getQuestions(quizIDs[rowIndex]);
-      var tableHTML = $('<table></table>')
-      for (var j = 0; j < 6; j++) {
-          var tableRowHTML = $('<tr></tr>')
-          for (var k = 0; k < 6; k++) {
-              if (j == 0) {
-                  var blurbHTML = `
-                  <td><div class="blurb category">
-                    <div class="category-textarea">
-                        <textarea rows="2" cols="10" placeholder="Category"></textarea>
-                    </div>
-                  </div></td>
-                  `;
-              } else {
-                  var blurbHTML = `
-                  <td><div class="blurb">
-                      <div class="question-textarea">
-                          <textarea rows="2" cols="10" placeholder="Question"></textarea>
-                      </div>
-                      <div class="answer-textarea">
-                          <textarea rows="2" cols="10" placeholder="Answer"></textarea>
-                      </div>
-                  </div></td>
-                  `;
-              }
+      var qlc = $('.quiz-list-container').empty();
+      qlc.width('0');
 
-              tableRowHTML.append(blurbHTML);
-              tableHTML.append(tableRowHTML);
-          }
-          quizContainer.append(tableHTML);
-      }
+      firebaseHandler.getQuestions(quizIDs[rowIndex]);
       var completionBarHTML = `
         <div class="bottom-bar">
             <a><div class="save commit-button">Commit Changes</div><a>
@@ -96,33 +100,15 @@ reveals a lighter background where the current selected option will reside.
         </div>
       `;
       quizContainer.append(completionBarHTML);
+      $('.commit-button').click(function(e) {
+         $('.edit-quiz-table tr').each(function(){
+            $(this).find('td').each(function(){
+                  console.log($(this).attr('id'));
+            })
+         })
+      });
     });
   }
-  /**/
-  function constructDropdown(quizIDs, quizNames, buttonTitle) {
-    var theHtml = `
-      <div class="dropdown">
-        <button class="dropbtn"> ` + buttonTitle + `</button>
-        <div class="dropdown-content">
-    `;
-
-    if (quizNames.length === 0) {
-      theHtml += '<a href="#">No Games</a>';
-
-    } else {
-      for (var counter = 0; counter < quizNames.length; counter++) {
-        theHtml += '<a href="#">' + quizNames[counter] + '</a>';
-      }
-    }
-
-    theHtml += `
-        </div>
-      </div>
-    `;
-
-    $('.intro').append(theHtml);
-  }
-
 
   App.UIHandler = UIHandler;
   window.App = App;
