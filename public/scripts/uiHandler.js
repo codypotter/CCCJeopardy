@@ -29,7 +29,7 @@ reveals a lighter background where the current selected option will reside.
       console.log(questions);
       var tableHTML = $('<table class="edit-quiz-table"></table>')
       for (var j = 0; j < 6; j++) {
-          var tableRowHTML = $('<tr></tr>')
+          var tableRowHTML = $('<tr class="quiz-table-row"></tr>')
           for (var k = 0; k < 6; k++) {
               if (j == 0) {
                   var blurbHTML = `
@@ -80,17 +80,19 @@ reveals a lighter background where the current selected option will reside.
       tbody.append(someHTML);
     }
     var quizContainer = $(".quiz-container");
+
     var playButton = $("input[name='play']").click(function(e) {
       console.log(e);
       e.target.style.backgroundColor = "#375f77";
       var quizListContainer = $('.quiz-list-container').empty();
       quizListContainer.width('0');
     });
+
     var editButton = $("input[name='edit']").click(function(e) {
       var rowIndex = e.target.parentNode.parentNode.rowIndex - 1;
       e.target.style.backgroundColor = "#375f77";
       var qlc = $('.quiz-list-container').empty();
-      qlc.width('0');
+      qlc.hide();
 
       firebaseHandler.getQuestions(quizIDs[rowIndex]);
       var completionBarHTML = `
@@ -101,11 +103,21 @@ reveals a lighter background where the current selected option will reside.
       `;
       quizContainer.append(completionBarHTML);
       $('.commit-button').click(function(e) {
-         $('.edit-quiz-table tr').each(function(){
-            $(this).find('td').each(function(){
-                  console.log($(this).attr('id'));
-            })
-         })
+          $("tr.quiz-table-row").each(function(rowNumber) {
+              console.log("Row Number:" + rowNumber);
+              var $this = $(this);
+              for(i = 0; i < 6; i++) {
+                  var $blurb = $this.context.cells[i].children[0];
+                  if ($($blurb).hasClass('category')){
+                      console.log("It's a category blurb");
+                      console.log($($blurb).find('textarea').val());
+                  } else {
+                      $($blurb).find('textarea').each(function(index){
+                          console.log(index + ": " + $(this).val());
+                      });
+                  }
+              }
+          });
       });
     });
   }
