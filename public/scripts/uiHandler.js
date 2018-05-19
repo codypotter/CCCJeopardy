@@ -1,68 +1,54 @@
-/* ----------------------------------------------------------------------------
-	uiHandler.js will alter index.html if the user signs in. It will remove
-the log in box, push the background to the left (making a side bar), and
-reveals a lighter background where the current selected option will reside.
------------------------------------------------------------------------------*/
-
-// TODO: put current selected option into not sidebar part of wrapper
-
 (function(window) {
   'use strict';
   var App = window.App || {};
   var $ = window.jQuery;
-  var FirebaseHandler = App.FirebaseHandler;
-  var firebaseHandler = new FirebaseHandler();
-
+  var firebaseHandler = window.firebaseHandler;
   function UIHandler() {
 
   };
 
-  UIHandler.prototype.login = function(quizIDs, quizNames){
-    var loginContainer = $('.login-container');
-    loginContainer.remove();
-
-    hideIntro();
+  UIHandler.prototype.login = function(quizIDs, quizNames) {
+    $('.intro').hide();
     buildQuizList(quizIDs, quizNames);
   };
 
-  UIHandler.prototype.fillInEditQuiz = function(questions) {
-      console.log(questions);
-      var tableHTML = $('<table class="edit-quiz-table"></table>')
-      for (var j = 0; j < 6; j++) {
-          var tableRowHTML = $('<tr class="quiz-table-row"></tr>')
-          for (var k = 0; k < 6; k++) {
-              if (j == 0) {
-                  var blurbHTML = `
+  UIHandler.prototype.fillInEditQuiz = function(quizData) {
+    if (!quizData) {
+      buildEmptyQuiz();
+      return;
+    }
+    var tableHTML = $('<table class="edit-quiz-table"></table>')
+    for (var j = 0; j < 6; j++) {
+      var tableRowHTML = $('<tr class="quiz-table-row"></tr>')
+      for (var k = 0; k < 6; k++) {
+        if (j == 0) {
+          var blurbHTML = `
                   <td><div class="blurb category">
                     <div class="category-textarea-container">
-                        <textarea rows="2" cols="10" placeholder="Category ` + (k+1) + `"></textarea>
+                        <textarea rows="2" cols="10" placeholder="Category ` + (k + 1) + `">` + quizData.Categories[k] + `</textarea>
                     </div>
                   </div></td>
                   `;
-              } else {
-                  var blurbHTML = `
+        } else {
+          var blurbHTML = `
                   <td><div class="blurb">
                       <div class="question-textarea-container">
-                          <textarea rows="2" cols="10" placeholder="Question"></textarea>
+                          <textarea rows="2" cols="10" placeholder="Question">` + quizData.Questions[k + ((j - 1) * 6)] + `</textarea>
                       </div>
                       <div class="answer-textarea-container">
-                          <textarea rows="2" cols="10" placeholder="Answer"></textarea>
+                          <textarea rows="2" cols="10" placeholder="Answer">` + quizData.Answers[k + ((j - 1) * 6)] + `</textarea>
                       </div>
                   </div></td>
                   `;
-              }
+        }
 
-              tableRowHTML.append(blurbHTML);
-              tableHTML.append(tableRowHTML);
-          }
-          var quizContainer = $(".quiz-container");
-          quizContainer.append(tableHTML);
+        tableRowHTML.append(blurbHTML);
+        tableHTML.append(tableRowHTML);
       }
+      var quizContainer = $(".quiz-container");
+      quizContainer.append(tableHTML);
+    }
   };
-
-  function hideIntro() {
-    $('.intro').width('0');
-  }
 
   function buildQuizList(quizIDs, quizNames) {
     var tbody = $('.quiz-list-table-body');
@@ -82,44 +68,92 @@ reveals a lighter background where the current selected option will reside.
     var quizContainer = $(".quiz-container");
 
     var playButton = $("input[name='play']").click(function(e) {
-      console.log(e);
       e.target.style.backgroundColor = "#375f77";
-      var quizListContainer = $('.quiz-list-container').empty();
-      quizListContainer.width('0');
+      $('.quiz-list-container').hide();
     });
 
     var editButton = $("input[name='edit']").click(function(e) {
       var rowIndex = e.target.parentNode.parentNode.rowIndex - 1;
       e.target.style.backgroundColor = "#375f77";
-      var qlc = $('.quiz-list-container').empty();
-      qlc.hide();
 
-      firebaseHandler.getQuestions(quizIDs[rowIndex]);
+      $('.quiz-list-container').hide();
+      $('.quiz-container').show();
+
+      window.FirebaseHandler.getQuizData(quizIDs[rowIndex]);
+      var quizIDInUse = quizIDs[rowIndex];
+
       var completionBarHTML = `
         <div class="bottom-bar">
-            <a><div class="save commit-button">Commit Changes</div><a>
-            <a><div class="save discard-button">...or discard</div><a>
+            <a><div class="save commit-button">Commit Changes</div></a>
+            <a><div class="save discard-button">...or discard</div></a>
         </div>
       `;
+
       quizContainer.append(completionBarHTML);
+
       $('.commit-button').click(function(e) {
-          $("tr.quiz-table-row").each(function(rowNumber) {
-              console.log("Row Number:" + rowNumber);
-              var $this = $(this);
-              for(i = 0; i < 6; i++) {
-                  var $blurb = $this.context.cells[i].children[0];
-                  if ($($blurb).hasClass('category')){
-                      console.log("It's a category blurb");
-                      console.log($($blurb).find('textarea').val());
-                  } else {
-                      $($blurb).find('textarea').each(function(index){
-                          console.log(index + ": " + $(this).val());
-                      });
-                  }
-              }
-          });
+        var questionAnswerIndex = 0;
+        $("tr.quiz-table-row").each(function(rowNumber) {
+          var $this = $(this);
+          for (var colNumber = 0; colNumber < 6; colNumber++) {
+            var blurb = $this.context.cells[colNumber].children[0];
+            if ($(blurb).hasClass('category')) {
+              window.FirebaseHandler.uploadData('Quizzes/' + quizIDInUse + '/Categories/' + colNumber, $(blurb).find('textarea').val());
+            } else {
+              $(blurb).find('textarea').each(function(index) {
+                if (index == 0) {
+                  window.FirebaseHandler.uploadData('Quizzes/' + quizIDInUse + '/Questions/' + questionAnswerIndex, $(this).val())
+                } else {
+                  window.FirebaseHandler.uploadData('Quizzes/' + quizIDInUse + '/Answers/' + questionAnswerIndex, $(this).val())
+                }
+              });
+              questionAnswerIndex++;
+            }
+          }
+        });
+        quizContainer.empty();
+        $('.quiz-list-container').show();
+      });
+
+      $('.discard-button').click(function(e) {
+        quizContainer.empty();
+        $('.quiz-list-container').show();
       });
     });
+  }
+
+  function buildEmptyQuiz() {
+    var tableHTML = $('<table class="edit-quiz-table"></table>')
+    for (var j = 0; j < 6; j++) {
+      var tableRowHTML = $('<tr class="quiz-table-row"></tr>')
+      for (var k = 0; k < 6; k++) {
+        if (j == 0) {
+          var blurbHTML = `
+                  <td><div class="blurb category">
+                    <div class="category-textarea-container">
+                        <textarea rows="2" cols="10" placeholder="Category ` + (k + 1) + `"></textarea>
+                    </div>
+                  </div></td>
+                  `;
+        } else {
+          var blurbHTML = `
+                  <td><div class="blurb">
+                      <div class="question-textarea-container">
+                          <textarea rows="2" cols="10" placeholder="Question"></textarea>
+                      </div>
+                      <div class="answer-textarea-container">
+                          <textarea rows="2" cols="10" placeholder="Answer"></textarea>
+                      </div>
+                  </div></td>
+                  `;
+        }
+
+        tableRowHTML.append(blurbHTML);
+        tableHTML.append(tableRowHTML);
+      }
+      var quizContainer = $(".quiz-container");
+      quizContainer.append(tableHTML);
+    }
   }
 
   App.UIHandler = UIHandler;

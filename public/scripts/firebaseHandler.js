@@ -2,8 +2,6 @@
   'use strict';
   var App = window.App || {};
   var provider = new firebase.auth.GoogleAuthProvider();
-
-
   function FirebaseHandler() {
     var config = {
       apiKey: "AIzaSyDmwHF26leDx1UffZleWD4m7rFI1J_2xyM",
@@ -13,18 +11,21 @@
       storageBucket: "grid-quiz-game.appspot.com",
       messagingSenderId: "780090118711"
     };
-    if (!firebase.apps.length) {
-        firebase.initializeApp(config);
+    if (firebase.apps.length === 0) {
+      firebase.initializeApp(config);
     }
   };
 
-  FirebaseHandler.prototype.getQuestions = function(quizID) {
-      var uh = new App.UIHandler();
-      var quizRef = firebase.database().ref('quizzes/' + quizID +'/questions');
-      quizRef.on('value', function(data) {
-          var questionsObject = data.val();
-          uh.fillInEditQuiz(questionsObject);
-      });
+  FirebaseHandler.prototype.getQuizData = function(quizID) {
+    var quizRef = firebase.database().ref('Quizzes/' + quizID);
+
+    quizRef.once('value').then(function(snapshot) {
+      window.UIHandler.fillInEditQuiz(snapshot.val());
+    });
+  };
+
+  FirebaseHandler.prototype.uploadData = function(path, data) {
+    firebase.database().ref(path).set(data);
   };
 
   $('.anonymous-sign-in-link').click(function(e) {
@@ -42,8 +43,7 @@
         var isAnonymous = user.isAnonymous;
         var uid = user.uid;
         console.log(uid);
-        var uh = App.UIHandler();
-        uh.login();
+        window.UIHandler.login();
       } else {
         //TODO: handle user signed out somehow?
         window.location.reload(false);
@@ -52,6 +52,8 @@
   });
 
   $('.google-login-button').click(function(e) {
+    $('.google-login-button').off('click');
+    $('.anonymous-sign-in-link').off('click');
     firebase.auth().signInWithPopup(provider).then(function(result) {
       var token = result.credential.accessToken;
       var user = result.user;
@@ -60,7 +62,6 @@
 
       quizIDRef.on('value', function(data) {
         // TODO: delete/rebuild buttons if needed
-        var uh = new App.UIHandler();
         var playersQuizzes = data.val();
         var quizIDs = [];
         var quizNames = [];
@@ -72,13 +73,14 @@
         }
 
         // build the buttons
-        uh.login(quizIDs, quizNames);
+        window.UIHandler.login(quizIDs, quizNames);
       });
 
     }).catch(function(error) {
       //TODO: handle google sign in error.
       //      If google sign in fails, we need to display an error, and reload
       //      the page.
+      console.log(error);
       var errorCode = error.code;
       var errorMessage = error.message;
       var email = error.email;

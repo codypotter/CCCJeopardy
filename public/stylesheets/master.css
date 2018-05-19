@@ -23,6 +23,10 @@ html, body {
   padding: 0;
 }
 
+a {
+  cursor: pointer;
+}
+
 .wrapper {
   height: 100%;
   overflow: hidden;
