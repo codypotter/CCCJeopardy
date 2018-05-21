@@ -6,7 +6,7 @@
                   #86BBD8
                   #F6AE2D
                   #F26419
-                  #49592f
+                  #566b36
 */
 
 html, body {
@@ -32,6 +32,10 @@ a {
   overflow: hidden;
 }
 
+.question {
+  cursor: pointer;
+}
+
 .white-text {
   color: white;
 }
@@ -55,6 +59,19 @@ a {
   transition-timing-function: ease-in-out;
 }
 
+.question-display {
+  font-family: 'Nunito';
+  background-color: #2f4858;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  z-index: 2;
+  font-size: xx-large;
+}
+
 .quiz-list-container {
   background-color: inherit;
   z-index: 2;
@@ -68,16 +85,20 @@ a {
   transition-timing-function: ease-in-out;
 }
 
-.edit-quiz-table {
+.quiz-table {
+    table-layout: fixed;
+    position: absolute;
+    top:0;
     height: 90%;
     width: 100%;
 }
 
 .quiz-container {
+  background-color: #1A2830;
   z-index: 1;
   height: 100%;
   width: 100%;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   position: fixed;
@@ -95,7 +116,6 @@ textarea {
     background-color: white;
     border: 0;
     width: 100%;
-    height: 50px;
     text-align: center;
     padding-top: 5px;
     font-size: small;
@@ -107,17 +127,102 @@ td {
 }
 
 .blurb {
-    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background-color: #33658A;
     border-radius: 2px;
     margin: 5px;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    height: 150%;
+    text-align: center;
 }
-.blurb .category {
-    background-color: black;
+
+.play {
+  background-color: #375f77;
+  color: white;
+  font-family: 'Nunito';
+  font-size: xx-large;
 }
+
+.category {
+  font-family: 'Nunito';
+  background-color: #566b36;
+  color: white;
+  font-size: inherit;
+  font-style: oblique;
+  word-wrap: break-word;
+  overflow: auto;
+}
+
+.category-textarea-container {
+  width: 100%;
+  height: 100%;
+}
+
+.question-textarea-container {
+  width: 100%;
+  height: 50%;
+}
+
+.answer-textarea-container {
+  width: 100%;
+  height: 50%;
+}
+
+.category-textarea {
+  height: 100%;
+}
+
+.question-textarea {
+  height: 100%;
+}
+
+.answer-textarea {
+  height: 100%;
+}
+
 .main {
   margin-left: 178px;
   height: 100vh;
+}
+
+.quiz-name-textarea {
+  margin:0;
+  height: 40;
+}
+
+.save.quiz-name-textarea {
+  height: auto;
+}
+
+.done {
+  background-color: #F26419;
+}
+
+.buzzer-container {
+  background-color: #1A2830;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.buzzer {
+  width: 300px;
+  height: 300px;
+  border-radius: 150px;
+  border-bottom: 4px solid #F26419;
+  background-color: #F6AE2D;
+  color: black;
+}
+
+.name-change-container {
+  display: flex;
+  flex-direction: row;
 }
 
 .app-title {
@@ -130,33 +235,78 @@ td {
 
 .quiz-list {
   border-radius: 2px;
-  width: 100%;
+  width: 90%;
+  margin: auto;
   transition: 0.7s;
   transition-timing-function: ease-in-out;
 }
 
+.top-bar {
+  background-color: #1A2830;
+  display: flex;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+}
+
+.play-table {
+  top: 60px;
+}
+
+.add-student-form {
+  width: 100%;
+  height: 100%;
+  background-color: #566b36;
+  color: white;
+  z-index: 4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.add-student-form h1 {
+  font-family: 'Pacifico';
+}
+
 .bottom-bar {
-    background-color: #1A2830;
-    display: flex;
-    position: fixed;
-    justify-content: center;
-    align-items: center;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 50px;
+  background-color: #1A2830;
+  display: flex;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+}
+
+.scoreboard-table {
+  width: 70%;
+}
+
+.scoreboard-table td {
+  padding-left: 5px;
+  padding-right: 5px;
+  text-align: center;
 }
 
 .save {
     display: flex;
     justify-content: center;
+    margin-left: 10px;
+    margin-right: 10px;
     align-items: center;
     width: 150px;
     height: 40px;
 }
 
 .commit-button {
-    background-color: #49592f;
+    background-color: #566b36;
     border-radius: 2px;
     color: white;
 }
@@ -165,10 +315,6 @@ td {
     width: 100px;
     color: white;
     font-style: oblique;
-}
-
-.category {
-    background-color: white;
 }
 
 th {

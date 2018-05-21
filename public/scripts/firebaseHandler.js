@@ -2,17 +2,23 @@
   'use strict';
   var App = window.App || {};
   var provider = new firebase.auth.GoogleAuthProvider();
+  var userID;
   function FirebaseHandler() {
     if (firebase.apps.length === 0) {
       firebase.initializeApp(config);
     }
   };
 
-  FirebaseHandler.prototype.getQuizData = function(quizID) {
+  FirebaseHandler.prototype.getQuizData = function(quizID, action) {
     var quizRef = firebase.database().ref('Quizzes/' + quizID);
 
     quizRef.once('value').then(function(snapshot) {
-      window.UIHandler.fillInEditQuiz(snapshot.val());
+      if (action == "play") {
+        window.UIHandler.fillInPlayQuiz(snapshot.val());
+      } else if (action == "edit") {
+        window.UIHandler.fillInEditQuiz(snapshot.val());
+      }
+
     });
   };
 
@@ -20,28 +26,47 @@
     firebase.database().ref(path).set(data);
   };
 
+  FirebaseHandler.prototype.listenAtBuzzer = function(quizID) {
+    firebase.database().ref('Quizzes/' + quizID + '/Buzzer/volunteer').on("value", function(snapshot) {
+      console.log(snapshot.val());
+    });
+  };
+
   $('.anonymous-sign-in-link').click(function(e) {
     e.preventDefault();
     firebase.auth().signInAnonymously().catch(function(error) {
       //TODO: handle sign in error.
       //      If anonymous sign-in fails, firebase is messing up big-time
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      console.log("an error occurred");
+      console.log('Error code: ' + error.code);
+      console.log('Error message: ' + error.message);
     });
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         // User is signed in.
         var isAnonymous = user.isAnonymous;
-        var uid = user.uid;
-        console.log(uid);
-        window.UIHandler.login();
+        userID = user.uid;
+        window.UIHandler.presentBuzzer();
       } else {
         //TODO: handle user signed out somehow?
         window.location.reload(false);
       }
     });
   });
+
+  FirebaseHandler.prototype.handleStudentRedirect = function(quizID) {
+    firebase.auth().signInAnonymously().catch(function(error) {
+      console.log('Error code: ' + error.code);
+      console.log('Error message: ' + error.message);
+    });
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        userID = user.uid;
+        window.UIHandler.presentBuzzer(quizID, userID);
+      } else {
+        window.location.reload(false);
+      }
+    });
+  };
 
   $('.google-login-button').click(function(e) {
     $('.google-login-button').off('click');
@@ -50,11 +75,10 @@
       var token = result.credential.accessToken;
       var user = result.user;
 
-      var quizIDRef = firebase.database().ref('users/' + user.uid + '/userQuizzes');
+      var quizIDRef = firebase.database().ref('Users/' + user.uid + '/Quizzes');
 
-      quizIDRef.on('value', function(data) {
-        // TODO: delete/rebuild buttons if needed
-        var playersQuizzes = data.val();
+      quizIDRef.once('value').then(function(snapshot) {
+        var playersQuizzes = snapshot.val();
         var quizIDs = [];
         var quizNames = [];
 
