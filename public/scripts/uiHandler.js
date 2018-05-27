@@ -14,7 +14,8 @@
 
     };
 
-    UIHandler.prototype.login = function(quizIDs, quizNames) {
+    UIHandler.prototype.login = function(quizIDs, quizNames, userID) {
+        userIDInUse = userID;
         $('.intro').hide();
         buildQuizList(quizIDs, quizNames);
     };
@@ -81,7 +82,6 @@
 
 
         $('.buzzer').on('click touch', function(e) {
-            quizIDInUse = "quiz1ID";
             var path = "Quizzes/" + quizIDInUse + "/Buzzer/volunteer";
             window.FirebaseHandler.uploadData(path, userID);
         });
@@ -230,6 +230,7 @@
             buildEmptyQuiz();
             return;
         }
+
         var tableHTML = $('<table class="quiz-table"></table>')
         for (var j = 0; j < 6; j++) {
             var tableRowHTML = $('<tr class="quiz-table-row"></tr>')
@@ -267,17 +268,25 @@
         var tbody = $('.quiz-list-table-body');
         for (var i = 0; i < quizIDs.length; i++) {
             var someHTML = `
-        <tr>
-          <td>${quizNames[i]}</td>
-          <td class="status-cell">&#9679; Ready</td>
-          <td class="action-cell">
-            <input type="image" name="play" src="images/play-button.png" class="action-button" />
-            <input type="image" name="edit" src="images/edit-button.png" class="action-button" />
-          </td>
-        </tr>
-      `;
+                <tr>
+                    <td>${quizNames[i]}</td>
+                    <td class="action-cell">
+                        <input type="image" name="play" src="images/play-button.png" class="action-button" />
+                        <input type="image" name="edit" src="images/edit-button.png" class="action-button" />
+                        <input type="image" name="delete" src="images/delete-button.png" class="action-button delete-button" />
+                    </td>
+                </tr>
+            `;
             tbody.append(someHTML);
         }
+        var addQuizHTML = `
+            <tr>
+                <td class="new-quiz-cell" colspan="2">
+                    <input type="image" name="new-quiz" src="images/new-quiz-button.png" class="action-button" />
+                </td>
+            </tr>
+        `;
+        tbody.append(addQuizHTML);
         var quizContainer = $(".quiz-container");
 
         var playButton = $("input[name='play']").on('click touch', function(e) {
@@ -290,17 +299,17 @@
             window.FirebaseHandler.getQuizData(quizIDInUse, "play");
 
             var scoreBoardHTML = `
-        <div class="top-bar">
-          <input type="image" name="add-student" src="images/add-student.png" class="action-button" />
-          <table class="scoreboard-table">
-            <tr>
-                <td class="team-1-score">Team 1: 0</td>
-                <td class="team-2-score">Team 2: 0</td>
-                <td class="team-3-score">Team 3: 0</td>
-            </tr>
-          </table>
-        </div>
-      `;
+                <div class="top-bar">
+                    <input type="image" name="add-student" src="images/add-student.png" class="action-button" />
+                    <table class="scoreboard-table">
+                        <tr>
+                            <td class="team-1-score">Team 1: 0</td>
+                            <td class="team-2-score">Team 2: 0</td>
+                            <td class="team-3-score">Team 3: 0</td>
+                        </tr>
+                    </table>
+                </div>
+            `;
             quizContainer.append(scoreBoardHTML);
         });
 
@@ -315,12 +324,70 @@
             window.FirebaseHandler.getQuizData(quizIDInUse, "edit");
 
             var completionBarHTML = `
-        <div class="bottom-bar">
-            <textarea wrap="hard" placeholder="Quiz Title" cols="20" rows="1" class="save quiz-name-textarea" required>` + quizNames[rowIndex] + `</textarea>
-            <a><div class="save commit-button">Commit Changes</div></a>
-            <a><div class="save discard-button">...or discard</div></a>
-        </div>
-      `;
+                <div class="bottom-bar">
+                    <textarea wrap="hard" placeholder="Quiz Title" cols="20" rows="1" class="save quiz-name-textarea" required>` + quizNames[rowIndex] + `</textarea>
+                    <a><div class="save commit-button">Commit Changes</div></a>
+                    <a><div class="save discard-button">...or discard</div></a>
+                </div>
+            `;
+
+            quizContainer.append(completionBarHTML);
+
+            $('.commit-button').on('click touch', function(e) {
+                var questionAnswerIndex = 0;
+                window.FirebaseHandler.uploadData(('Users/' + firebase.auth().currentUser.uid + '/Quizzes/' + quizIDInUse), $('.quiz-name-textarea').val());
+                $("tr.quiz-table-row").each(function(rowNumber) {
+                    var $this = $(this);
+                    for (var colNumber = 0; colNumber < 6; colNumber++) {
+                        var blurb = $this.context.cells[colNumber].children[0];
+                        if ($(blurb).hasClass('category')) {
+                            window.FirebaseHandler.uploadData('Quizzes/' + quizIDInUse + '/Categories/' + colNumber, $(blurb).find('textarea').val());
+                        } else {
+                            $(blurb).find('textarea').each(function(index) {
+                                if (index == 0) {
+                                    window.FirebaseHandler.uploadData('Quizzes/' + quizIDInUse + '/Questions/' + questionAnswerIndex, $(this).val())
+                                } else {
+                                    window.FirebaseHandler.uploadData('Quizzes/' + quizIDInUse + '/Answers/' + questionAnswerIndex, $(this).val())
+                                }
+                            });
+                            questionAnswerIndex++;
+                        }
+                    }
+                });
+                quizContainer.empty();
+                quizContainer.hide();
+                $('.quiz-list-container').show();
+            });
+
+            $('.discard-button').on('click touch', function(e) {
+                quizContainer.empty();
+                quizContainer.hide();
+                $('.quiz-list-container').show();
+            });
+        });
+
+        var newQuizButton = $(".new-quiz-cell").on('click touch', function(e) {
+            var rowIndex = e.target.parentNode.parentNode.rowIndex - 1;
+            e.target.style.backgroundColor = "#375f77";
+            // push a new quiz to firebase at Users/uid/Quizzes
+            var key = window.FirebaseHandler.pushData(('Users/' + userIDInUse + '/Quizzes'), 'My New Quiz');
+            quizIDs.push(key);
+            quizIDInUse = key;
+            console.log(key);
+            //quizIDInUse = snapshot.key;
+
+            $('.quiz-list-container').hide();
+            $('.quiz-container').show();
+
+            window.FirebaseHandler.getQuizData(quizIDInUse, "edit");
+
+            var completionBarHTML = `
+                <div class="bottom-bar">
+                    <textarea wrap="hard" placeholder="Quiz Title" cols="20" rows="1" class="save quiz-name-textarea" required>` + quizNames[rowIndex] + `</textarea>
+                    <a><div class="save commit-button">Commit Changes</div></a>
+                    <a><div class="save discard-button">...or discard</div></a>
+                </div>
+            `;
 
             quizContainer.append(completionBarHTML);
 
@@ -359,6 +426,7 @@
     }
 
     function buildEmptyQuiz() {
+
         var tableHTML = $('<table class="quiz-table"></table>')
         for (var j = 0; j < 6; j++) {
             var tableRowHTML = $('<tr class="quiz-table-row"></tr>')
@@ -367,7 +435,7 @@
                     var blurbHTML = `
                   <td><div class="blurb category">
                     <div class="category-textarea-container">
-                        <textarea wrap="hard" placeholder="Category ` + (k + 1) + `"></textarea>
+                        <textarea wrap="hard" class="category-textarea" placeholder="Category ` + (k + 1) + `"></textarea>
                     </div>
                   </div></td>
                   `;
@@ -375,10 +443,10 @@
                     var blurbHTML = `
                   <td><div class="blurb">
                       <div class="question-textarea-container">
-                          <textarea wrap="hard" placeholder="Question"></textarea>
+                          <textarea wrap="hard" class="question-textarea" placeholder="Question"></textarea>
                       </div>
                       <div class="answer-textarea-container">
-                          <textarea wrap="hard" placeholder="Answer"></textarea>
+                          <textarea wrap="hard" class="answer-textarea" placeholder="Answer"></textarea>
                       </div>
                   </div></td>
                   `;

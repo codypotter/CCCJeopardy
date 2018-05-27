@@ -34,6 +34,14 @@
         });
     };
 
+    FirebaseHandler.prototype.pushData = function(path, data) {
+        var newPathRef = firebase.database().ref(path).push();
+
+        newPathRef.set(data);
+        var key = newPathRef.key;
+        return key;
+    }
+
     FirebaseHandler.prototype.listenAtBuzzer = function(quizID, questionIndex) {
         // first set it as null, so we know if it's a new volunteer
         this.uploadData(('Quizzes/' + quizID + '/Buzzer/volunteer'), null);
@@ -74,7 +82,7 @@
                 // User is signed in.
                 authFlag = true;
                 userID = user.uid;
-                window.UIHandler.presentBuzzer("quiz1ID", userID);
+                window.UIHandler.presentBuzzer("", userID);
             } else {
                 //TODO: handle user signed out somehow?
                 window.location.reload(false);
@@ -119,7 +127,7 @@
                 }
 
                 // build the buttons
-                window.UIHandler.login(quizIDs, quizNames);
+                window.UIHandler.login(quizIDs, quizNames, user.uid);
             });
 
         }).catch(function(error) {
