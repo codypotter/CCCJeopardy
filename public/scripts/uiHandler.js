@@ -9,6 +9,7 @@
     var team1Score = 0;
     var team2Score = 0;
     var team3Score = 0;
+    var correctAnswers = 0;
 
     function UIHandler() {
 
@@ -46,12 +47,14 @@
                                         '<div class="buzzer">' +
                                             '<h1>Push Me!</h1>' +
                                         '</div>' +
-                                        '<div class="name-change-container">' +
-                                            'Team:' +
-                                            '<input type="number" name="team" min="1" max="3" />' +
-                                            'Name:' +
-                                            '<textarea placeholder="My Name" class="student-name-textarea"></textarea>' +
-                                            '<div class="save done">Done</div>' +
+                                        '<div class="credentials-container">' +
+                                            '<div class="name-change-container">' +
+                                                '<label for="team">Team:' +
+                                                '<input type="number" name="team" min="1" max="3" /><label>' +
+                                                '<label for="name">Name:' +
+                                                '<textarea placeholder="My Name" name="name" class="student-name-textarea"></textarea></label>' +
+                                                '<div class="save done">Done</div>' +
+                                            '</div>' +
                                         '</div>' +
                                     '</div>';
 
@@ -75,8 +78,11 @@
 
                 var studentTeamPath = "Quizzes/" + quizIDInUse + "/Teams/Team" + userTeam + "/" + userID;
                 window.FirebaseHandler.uploadData(studentTeamPath, studentName);
+
+                $('.credentials-container').hide();
+                console.log('should be working');
             } else {
-                presentAlertWithMessage("Please fill in team and name. Then try again.", $('.buzzer-container'));
+                presentAlertWithMessage("Please fill in team and name. Then try again.", $('.name-change-container'));
             }
         });
 
@@ -101,6 +107,7 @@
         var questionDisplay = $('.question-display').append(buzzAlertHTML);
 
         $('.correct').on('click touch', function() {
+            correctAnswers++;
             // if correct, increment the student's team score
             // find the team number
             var pointValue;
@@ -136,10 +143,35 @@
                     updateScores();
                 }
             });
-            var blurbDiv = $('div[data-array-index="' + questionIndex + '"]');
-            blurbDiv.remove();
-            // display correct answer
-            questionDisplay.remove();
+
+            $('.correct-incorrect-container').remove();
+            $('.buzz-alert h1').remove();
+            // show correct Answer
+            firebase.database().ref('Quizzes/' + quizIDInUse + '/Answers/' + questionIndex).once('value').then(function(snapshot) {
+                var answer = snapshot.val();
+
+                var correctAnswerHTML = `
+                    <div class="correct-answer">
+                        <h1>`+ answer + `</h1>
+                        <div class="exit-answer save done commit-button">Done</div>
+                    </div>
+                `;
+
+                $('.buzz-alert').append(correctAnswerHTML);
+
+                $('.exit-answer').on('click touch', function() {
+                    // remove question from list
+                    $('div[data-array-index="' + questionIndex + '"]').remove();
+                    // exit
+                    questionDisplay.remove();
+                    if (correctAnswers >= 1) {
+                        correctAnswers = 0;
+                        console.log('game over');
+                        displayFinalScores();
+                    }
+
+                });
+            });
         });
 
         $('.incorrect').on('click touch', function() {
@@ -147,6 +179,30 @@
             $('.buzz-alert').remove();
             window.FirebaseHandler.listenAtBuzzer(quizIDInUse, questionIndex);
         });
+    }
+
+    function displayFinalScores() {
+        var winningTeamScore = Math.max(team1Score, team2Score, team3Score);
+        var winningTeamName;
+        if (winningTeamScore == team1Score) {
+            winningTeamName = "Team 1";
+        } else if (winningTeamScore == team2Score) {
+            winningTeamName = "Team 2";
+        } else {
+            winningTeamName = "Team 3";
+        }
+
+        var winnerDisplay = `
+            <div class="winner-display">
+                And the winner is...<br>
+                `+ winningTeamName +`!<br>
+            </div>
+        `;
+
+        $('.play-table').remove();
+        $('.quiz-container').append(winnerDisplay);
+
+
     }
 
     function updateScores() {
@@ -193,13 +249,24 @@
             // get question data using quizData.Questions[dataIndex]
             var questionDisplayHTML = `
                 <div class="question-display">
+                    <input type="image" name="skip" src="images/skip-button.png" class="action-button" />
                 </div>
             `;
             quizContainer.append(questionDisplayHTML);
+            $("input[name='skip']").on('click touch', function(e) {
+                $('.question-display').remove();
+                $('div[data-array-index="' + dataIndex + '"]').remove();
+                correctAnswers++;
+            });
 
             window.FirebaseHandler.listenAtBuzzer(quizIDInUse, dataIndex);
 
             showText(".question-display", quizData.Questions[dataIndex], 0, 150);
+        });
+
+        $("input[name='back']").on('click touch', function(e) {
+            $('.quiz-container').empty().hide();
+            $('.quiz-list-container').show();
         });
 
         $("input[name='add-student']").on('click touch', function(e) {
@@ -291,7 +358,6 @@
 
         var playButton = $("input[name='play']").on('click touch', function(e) {
             var rowIndex = e.target.parentNode.parentNode.rowIndex - 1;
-            e.target.style.backgroundColor = "#375f77";
             quizIDInUse = quizIDs[rowIndex];
             $('.quiz-list-container').hide();
             $('.quiz-container').show();
@@ -300,6 +366,7 @@
 
             var scoreBoardHTML = `
                 <div class="top-bar">
+                    <input type="image" name="back" src="images/back-button.png" class="action-button" />
                     <input type="image" name="add-student" src="images/add-student.png" class="action-button" />
                     <table class="scoreboard-table">
                         <tr>
@@ -315,7 +382,6 @@
 
         var editButton = $("input[name='edit']").on('click touch', function(e) {
             var rowIndex = e.target.parentNode.parentNode.rowIndex - 1;
-            e.target.style.backgroundColor = "#375f77";
             quizIDInUse = quizIDs[rowIndex];
 
             $('.quiz-list-container').hide();
@@ -366,9 +432,17 @@
             });
         });
 
+        $("input[name='delete']").on('click touch', function(e) {
+            var rowIndex = e.target.parentNode.parentNode.rowIndex - 1;
+            var quizIDToDelete = quizIDs[rowIndex];
+
+            window.FirebaseHandler.uploadData(('Quizzes/' + quizIDToDelete), null);
+            window.FirebaseHandler.uploadData(('Users/' + userIDInUse + '/Quizzes/' + quizIDToDelete), null);
+            $('.quiz-list').deleteRow(rowIndex);
+        });
+
         var newQuizButton = $(".new-quiz-cell").on('click touch', function(e) {
             var rowIndex = e.target.parentNode.parentNode.rowIndex - 1;
-            e.target.style.backgroundColor = "#375f77";
             // push a new quiz to firebase at Users/uid/Quizzes
             var key = window.FirebaseHandler.pushData(('Users/' + userIDInUse + '/Quizzes'), 'My New Quiz');
             quizIDs.push(key);
@@ -433,23 +507,23 @@
             for (var k = 0; k < 6; k++) {
                 if (j == 0) {
                     var blurbHTML = `
-                  <td><div class="blurb category">
-                    <div class="category-textarea-container">
-                        <textarea wrap="hard" class="category-textarea" placeholder="Category ` + (k + 1) + `"></textarea>
-                    </div>
-                  </div></td>
-                  `;
+                        <td><div class="blurb category">
+                                <div class="category-textarea-container">
+                                    <textarea wrap="hard" class="category-textarea" placeholder="Category ` + (k + 1) + `"></textarea>
+                                </div>
+                        </div></td>
+                    `;
                 } else {
                     var blurbHTML = `
-                  <td><div class="blurb">
-                      <div class="question-textarea-container">
-                          <textarea wrap="hard" class="question-textarea" placeholder="Question"></textarea>
-                      </div>
-                      <div class="answer-textarea-container">
-                          <textarea wrap="hard" class="answer-textarea" placeholder="Answer"></textarea>
-                      </div>
-                  </div></td>
-                  `;
+                        <td><div class="blurb">
+                            <div class="question-textarea-container">
+                                <textarea wrap="hard" class="question-textarea" placeholder="Question"></textarea>
+                            </div>
+                            <div class="answer-textarea-container">
+                                <textarea wrap="hard" class="answer-textarea" placeholder="Answer"></textarea>
+                            </div>
+                        </div></td>
+                    `;
                 }
 
                 tableRowHTML.append(blurbHTML);
@@ -467,7 +541,7 @@
                 showText(target, message, index, interval);
             }, interval);
         }
-    }
+    };
 
     App.UIHandler = UIHandler;
     window.App = App;
