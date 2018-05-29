@@ -29,7 +29,7 @@
             if (error) {
                 console.log(error);
             } else {
-                console.log('Upload was successful');
+
             }
         });
     };
@@ -44,20 +44,20 @@
 
     FirebaseHandler.prototype.listenAtBuzzer = function(quizID, questionIndex) {
         // first set it as null, so we know if it's a new volunteer
-        this.uploadData(('Quizzes/' + quizID + '/Buzzer/volunteer'), null);
+        this.uploadData(('Buzzers/' + quizID), null);
 
         // start a listener at the buzzer
         var studentName;
         var studentID;
-        firebase.database().ref('Quizzes/' + quizID + '/Buzzer/volunteer').on("value", function(snapshot) {
+        firebase.database().ref('Buzzers/' + quizID).on("value", function(snapshot) {
             // if it's null, then it's not a volunteer
             if (snapshot.val()) {
                 // someone buzzed in
                 studentID = snapshot.val();
                 // turn the listener off
-                firebase.database().ref('Quizzes/' + quizID + '/Buzzer/volunteer').off();
+                firebase.database().ref('Buzzers/' + quizID).off();
                 // get the student name from firebase.
-                var path = 'Quizzes/' + quizID + '/Students/' + snapshot.val();
+
                 firebase.database().ref('Quizzes/' + quizID + '/Students/' + snapshot.val()).once('value').then(function(snap) {
                     studentName = snap.val();
                     // have UI handler deal with presenting student name on alert correct? yes/no
@@ -85,7 +85,7 @@
                 window.UIHandler.presentBuzzer("", userID);
             } else {
                 //TODO: handle user signed out somehow?
-                window.location.reload(false);
+                //window.location.reload(false);
             }
         });
     });
@@ -101,7 +101,7 @@
                 authFlag = true;
                 window.UIHandler.presentBuzzer(quizID, userID);
             } else {
-                window.location.reload(false);
+                //window.location.reload(false);
             }
         });
     };
